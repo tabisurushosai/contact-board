@@ -21,10 +21,17 @@ export type ContactBoardAppOptions = {
   message: MessageResolver;
 };
 
+type StatusTone = "success" | "error";
+
+type StatusMessage = {
+  text: string;
+  tone: StatusTone;
+};
+
 export function createContactBoardApp({ root, storage, message }: ContactBoardAppOptions): ContactBoardApp {
   let boardState: ContactBoardState | null = null;
   let editingContactId: string | null = null;
-  let statusMessage = "";
+  let statusMessage: StatusMessage | null = null;
 
   async function bootstrap(): Promise<void> {
     root.replaceChildren(
@@ -127,7 +134,7 @@ export function createContactBoardApp({ root, storage, message }: ContactBoardAp
       const editButton = createButton(message("editButton", "Edit"), "secondary-button");
       editButton.addEventListener("click", () => {
         editingContactId = contact.id;
-        statusMessage = "";
+        statusMessage = null;
         render();
       });
 
@@ -138,7 +145,7 @@ export function createContactBoardApp({ root, storage, message }: ContactBoardAp
         }
         boardState = removeContact(boardState, contact.id);
         editingContactId = null;
-        statusMessage = message("deletedStatus", "Deleted.");
+        statusMessage = { text: message("deletedStatus", "Deleted."), tone: "success" };
         await storage.save(boardState);
         render();
       });
@@ -189,7 +196,7 @@ export function createContactBoardApp({ root, storage, message }: ContactBoardAp
       const cancelButton = createButton(message("cancelButton", "Cancel"), "secondary-button", "button");
       cancelButton.addEventListener("click", () => {
         editingContactId = null;
-        statusMessage = "";
+        statusMessage = null;
         render();
       });
       buttonRow.append(cancelButton);
@@ -203,14 +210,14 @@ export function createContactBoardApp({ root, storage, message }: ContactBoardAp
       const note = String(formData.get("note") ?? "");
 
       if (!name.trim()) {
-        statusMessage = message("nameRequired", "Please enter a name.");
+        statusMessage = { text: message("nameRequired", "Please enter a name."), tone: "error" };
         render();
         return;
       }
 
       boardState = upsertContact(state, { id: editingContact?.id, name, note });
       editingContactId = null;
-      statusMessage = message("savedStatus", "Saved locally.");
+      statusMessage = { text: message("savedStatus", "Saved locally."), tone: "success" };
       await storage.save(boardState);
       render();
     });
@@ -280,9 +287,9 @@ export function createContactBoardApp({ root, storage, message }: ContactBoardAp
     return button;
   }
 
-  function createStatusMessage(text: string): HTMLParagraphElement {
-    const status = createElement("p", "status-message", text);
-    status.setAttribute("role", "status");
+  function createStatusMessage(statusMessage: StatusMessage): HTMLParagraphElement {
+    const status = createElement("p", `status-message status-message--${statusMessage.tone}`, statusMessage.text);
+    status.setAttribute("role", statusMessage.tone === "error" ? "alert" : "status");
     status.setAttribute("aria-live", "polite");
     return status;
   }
