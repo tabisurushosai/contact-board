@@ -6,7 +6,7 @@
   "description": "Chrome extension for showing frequently-contacted family names and short notes in large text.",
   "scripts": {
     "dev": "vite --host 0.0.0.0",
-    "build": "tsc --noEmit && vite build",
+    "build": "tsc --noEmit -p tsconfig.core.json && tsc --noEmit && vite build",
     "preview": "vite preview --host 0.0.0.0"
   },
   "devDependencies": {
