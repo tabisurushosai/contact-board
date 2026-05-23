@@ -44,8 +44,14 @@
   "editButton": {
     "message": "Edit"
   },
+  "editContactButtonLabel": {
+    "message": "Edit $1"
+  },
   "deleteButton": {
     "message": "Delete"
+  },
+  "deleteContactButtonLabel": {
+    "message": "Delete $1"
   },
   "deletedStatus": {
     "message": "Deleted."
