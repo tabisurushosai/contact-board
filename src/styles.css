@@ -1,0 +1,205 @@
+:root {
+  color: #14213d;
+  background: #f7f3e8;
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+  font-size: 18px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-width: 380px;
+  max-width: 520px;
+  margin: 0;
+  background: #f7f3e8;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+.app-shell {
+  display: grid;
+  gap: 18px;
+  padding: 18px;
+}
+
+.hero,
+.contacts-section,
+.editor-section,
+.premium-panel {
+  border: 2px solid #14213d;
+  border-radius: 18px;
+  background: #fffaf0;
+  box-shadow: 0 4px 0 #14213d;
+  padding: 18px;
+}
+
+.hero {
+  background: #14213d;
+  color: #ffffff;
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  color: #ffd166;
+  font-size: 0.95rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  margin-bottom: 10px;
+  font-size: 2.1rem;
+  line-height: 1.1;
+}
+
+h2 {
+  margin-bottom: 12px;
+  font-size: 1.35rem;
+}
+
+h3 {
+  margin-bottom: 8px;
+  font-size: 1.55rem;
+  line-height: 1.15;
+}
+
+.lead,
+.contact-text p,
+.empty-card p,
+.premium-panel p {
+  font-size: 1.05rem;
+  line-height: 1.45;
+}
+
+.lead,
+.premium-panel p:last-child,
+.empty-card p:last-child {
+  margin-bottom: 0;
+}
+
+.contact-list {
+  display: grid;
+  gap: 14px;
+}
+
+.contact-card {
+  display: grid;
+  gap: 14px;
+  border: 2px solid #263859;
+  border-radius: 16px;
+  background: #ffffff;
+  padding: 16px;
+}
+
+.contact-text p {
+  margin-bottom: 0;
+  color: #263859;
+  font-weight: 600;
+}
+
+.card-actions,
+.form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.field {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 14px;
+  color: #14213d;
+  font-weight: 800;
+}
+
+.field input {
+  width: 100%;
+  border: 3px solid #14213d;
+  border-radius: 14px;
+  background: #ffffff;
+  color: #14213d;
+  padding: 13px 14px;
+  font-size: 1.12rem;
+}
+
+.field input:focus {
+  outline: 4px solid #ffd166;
+  outline-offset: 2px;
+}
+
+.field-help,
+.premium-note,
+.premium-date {
+  color: #3d4f73;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+button {
+  min-height: 48px;
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 900;
+  padding: 12px 18px;
+}
+
+button:focus {
+  outline: 4px solid #ffd166;
+  outline-offset: 2px;
+}
+
+.primary-button {
+  background: #0b6b3a;
+  color: #ffffff;
+}
+
+.secondary-button {
+  background: #ffd166;
+  color: #14213d;
+}
+
+.danger-button {
+  background: #a31621;
+  color: #ffffff;
+}
+
+.empty-card,
+.status-message {
+  border-radius: 14px;
+  background: #fff0c2;
+  padding: 14px;
+}
+
+.empty-title,
+.status-message {
+  color: #14213d;
+  font-weight: 900;
+}
+
+.status-message {
+  border: 2px solid #14213d;
+  margin: 0;
+}
+
+data {
+  display: none;
+}
