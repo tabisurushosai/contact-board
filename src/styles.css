@@ -19,6 +19,7 @@ body {
   max-width: 520px;
   margin: 0;
   background: #f7f3e8;
+  color: #14213d;
 }
 
 button,
@@ -28,19 +29,25 @@ input {
 
 .app-shell {
   display: grid;
-  gap: 18px;
+  gap: 16px;
   padding: 18px;
+}
+
+.app-shell--state {
+  min-height: 320px;
+  align-content: center;
 }
 
 .hero,
 .contacts-section,
 .editor-section,
-.premium-panel {
+.premium-panel,
+.app-shell > .state-card {
   border: 2px solid #14213d;
   border-radius: 18px;
   background: #fffaf0;
   box-shadow: 0 4px 0 #14213d;
-  padding: 18px;
+  padding: 20px;
 }
 
 .hero {
@@ -73,6 +80,7 @@ h1 {
 h2 {
   margin-bottom: 12px;
   font-size: 1.35rem;
+  line-height: 1.2;
 }
 
 h3 {
@@ -82,7 +90,7 @@ h3 {
 }
 
 .lead,
-.contact-text p,
+.contact-note,
 .empty-card p,
 .premium-panel p {
   font-size: 1.05rem;
@@ -95,6 +103,40 @@ h3 {
   margin-bottom: 0;
 }
 
+.section-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.section-heading h2 {
+  margin-bottom: 0;
+}
+
+.section-meta {
+  flex: 0 0 auto;
+  border: 1px solid #4b5f86;
+  border-radius: 999px;
+  background: #eef3ff;
+  color: #14213d;
+  font-size: 0.88rem;
+  font-weight: 900;
+  line-height: 1.2;
+  margin: 0;
+  padding: 6px 10px;
+  white-space: nowrap;
+}
+
+.section-intro {
+  color: #3d4f73;
+  font-size: 1rem;
+  font-weight: 650;
+  line-height: 1.45;
+  margin: -4px 0 16px;
+}
+
 .contact-list {
   display: grid;
   gap: 14px;
@@ -102,17 +144,25 @@ h3 {
 
 .contact-card {
   display: grid;
-  gap: 14px;
+  gap: 16px;
   border: 2px solid #263859;
   border-radius: 16px;
   background: #ffffff;
-  padding: 16px;
+  padding: 18px;
 }
 
-.contact-text p {
+.contact-name {
+  margin-bottom: 8px;
+}
+
+.contact-note {
   margin-bottom: 0;
   color: #263859;
   font-weight: 600;
+}
+
+.muted-note {
+  color: #5c6a82;
 }
 
 .card-actions,
@@ -162,6 +212,11 @@ button {
   padding: 12px 18px;
 }
 
+.card-actions button,
+.form-actions button {
+  flex: 1 1 120px;
+}
+
 button:focus {
   outline: 4px solid #ffd166;
   outline-offset: 2px;
@@ -189,6 +244,10 @@ button:focus {
   padding: 14px;
 }
 
+.empty-card.state-card {
+  border: 2px dashed #6a5b2d;
+}
+
 .empty-title,
 .status-message {
   color: #14213d;
@@ -196,8 +255,32 @@ button:focus {
 }
 
 .status-message {
-  border: 2px solid #14213d;
+  border: 2px solid #0b6b3a;
+  background: #e8fff1;
+  color: #0a4f2d;
   margin: 0;
+}
+
+.state-kicker {
+  color: #6a5b2d;
+  font-size: 0.9rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+
+.loading-card p:last-child,
+.error-card p:last-child {
+  color: #263859;
+  font-size: 1.05rem;
+  font-weight: 650;
+  line-height: 1.45;
+  margin-bottom: 0;
+}
+
+.error-card {
+  background: #fff5f5;
 }
 
 data {

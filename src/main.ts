@@ -1,4 +1,5 @@
 import {
+  MAX_CONTACTS,
   MAX_NAME_LENGTH,
   MAX_NOTE_LENGTH,
   removeContact,
@@ -40,12 +41,26 @@ async function bootstrap(): Promise<void> {
     return;
   }
 
+  app.replaceChildren(
+    createStateShell(
+      "loading-card",
+      message("loadingTitle", "Loading board"),
+      message("loadingBody", "Checking saved names on this device."),
+      "status"
+    )
+  );
+
   try {
     boardState = await storage.load();
     render();
   } catch {
     app.replaceChildren(
-      createElement("main", "app-shell", message("loadError", "Could not load local data."))
+      createStateShell(
+        "error-card",
+        message("loadError", "Could not load local data."),
+        message("loadErrorBody", "Please close and reopen this popup."),
+        "alert"
+      )
     );
   }
 }
@@ -56,12 +71,13 @@ function render(): void {
   }
 
   const root = createElement("main", "app-shell");
-  root.append(createHeader(), createContactList(boardState.contacts), createEditor(boardState), createPremiumPanel(boardState));
+  root.append(createHeader());
 
   if (statusMessage) {
-    root.append(createElement("p", "status-message", statusMessage));
+    root.append(createStatusMessage(statusMessage));
   }
 
+  root.append(createContactList(boardState.contacts), createEditor(boardState), createPremiumPanel(boardState));
   app.replaceChildren(root);
 }
 
@@ -85,12 +101,21 @@ function createHeader(): HTMLElement {
 function createContactList(contacts: ContactEntry[]): HTMLElement {
   const section = createElement("section", "contacts-section");
   section.setAttribute("aria-labelledby", "contacts-title");
+  const heading = createElement("div", "section-heading");
   const title = createElement("h2", "", message("contactsTitle", "Family contacts"));
   title.id = "contacts-title";
-  section.append(title);
+  heading.append(
+    title,
+    createElement(
+      "p",
+      "section-meta",
+      message("contactCount", "$1 / $2 displayed", [String(contacts.length), String(MAX_CONTACTS)])
+    )
+  );
+  section.append(heading);
 
   if (contacts.length === 0) {
-    const empty = createElement("div", "empty-card");
+    const empty = createElement("div", "empty-card state-card");
     empty.append(
       createElement("p", "empty-title", message("emptyTitle", "No names yet")),
       createElement("p", "", message("emptyBody", "Add a name and short note to show it here."))
@@ -103,7 +128,14 @@ function createContactList(contacts: ContactEntry[]): HTMLElement {
   contacts.forEach((contact) => {
     const card = createElement("article", "contact-card");
     const text = createElement("div", "contact-text");
-    text.append(createElement("h3", "", contact.name), createElement("p", "", contact.note || message("noNote", "No note")));
+    text.append(
+      createElement("h3", "contact-name", contact.name),
+      createElement(
+        "p",
+        contact.note ? "contact-note" : "contact-note muted-note",
+        contact.note || message("noNote", "No note")
+      )
+    );
 
     const actions = createElement("div", "card-actions");
     const editButton = createButton(message("editButton", "Edit"), "secondary-button");
@@ -144,7 +176,16 @@ function createEditor(state: ContactBoardState): HTMLElement {
     editingContact ? message("editContactTitle", "Edit displayed name") : message("addContactTitle", "Add displayed name")
   );
   title.id = "editor-title";
-  section.append(title);
+  section.append(
+    title,
+    createElement(
+      "p",
+      "section-intro",
+      editingContact
+        ? message("editContactHint", "Update the display text shown on the board.")
+        : message("addContactHint", "Add one name and a short note for the board display.")
+    )
+  );
 
   const form = document.createElement("form");
   form.className = "contact-form";
@@ -246,6 +287,26 @@ function createButton(label: string, className: string, type: "button" | "submit
   button.type = type;
   button.textContent = label;
   return button;
+}
+
+function createStatusMessage(text: string): HTMLParagraphElement {
+  const status = createElement("p", "status-message", text);
+  status.setAttribute("role", "status");
+  status.setAttribute("aria-live", "polite");
+  return status;
+}
+
+function createStateShell(className: string, title: string, body: string, role: "alert" | "status"): HTMLElement {
+  const root = createElement("main", "app-shell app-shell--state");
+  const card = createElement("section", `state-card ${className}`);
+  card.setAttribute("role", role);
+  card.append(
+    createElement("p", "state-kicker", message("singlePurposeLabel", "Memo display only")),
+    createElement("h1", "", title),
+    createElement("p", "", body)
+  );
+  root.append(card);
+  return root;
 }
 
 function createElement<K extends keyof HTMLElementTagNameMap>(

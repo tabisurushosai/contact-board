@@ -20,8 +20,17 @@
   "appLead": {
     "message": "よく連絡する家族の名前と短いメモを、大きな文字で見やすく表示します。発信や送信はできません。"
   },
+  "loadingTitle": {
+    "message": "読み込み中"
+  },
+  "loadingBody": {
+    "message": "この端末に保存された名前を確認しています。"
+  },
   "contactsTitle": {
     "message": "家族の表示リスト"
+  },
+  "contactCount": {
+    "message": "$1 / $2件表示"
   },
   "emptyTitle": {
     "message": "まだ名前がありません"
@@ -46,6 +55,12 @@
   },
   "addContactTitle": {
     "message": "表示する名前を追加"
+  },
+  "editContactHint": {
+    "message": "ボードに表示する文字を更新します。"
+  },
+  "addContactHint": {
+    "message": "ボードに表示する名前と短いメモを追加します。"
   },
   "nameLabel": {
     "message": "名前"
@@ -91,5 +106,8 @@
   },
   "loadError": {
     "message": "ローカルデータを読み込めませんでした。"
+  },
+  "loadErrorBody": {
+    "message": "ポップアップを閉じて、もう一度開いてください。"
   }
 }

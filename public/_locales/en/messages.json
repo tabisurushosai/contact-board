@@ -20,8 +20,17 @@
   "appLead": {
     "message": "Frequently-contacted family names and short notes are shown in large text. Calling and sending are not available."
   },
+  "loadingTitle": {
+    "message": "Loading board"
+  },
+  "loadingBody": {
+    "message": "Checking saved names on this device."
+  },
   "contactsTitle": {
     "message": "Family display list"
+  },
+  "contactCount": {
+    "message": "$1 / $2 displayed"
   },
   "emptyTitle": {
     "message": "No names yet"
@@ -46,6 +55,12 @@
   },
   "addContactTitle": {
     "message": "Add displayed name"
+  },
+  "editContactHint": {
+    "message": "Update the display text shown on the board."
+  },
+  "addContactHint": {
+    "message": "Add one name and a short note for the board display."
   },
   "nameLabel": {
     "message": "Name"
@@ -91,5 +106,8 @@
   },
   "loadError": {
     "message": "Could not load local data."
+  },
+  "loadErrorBody": {
+    "message": "Please close and reopen this popup."
   }
 }
