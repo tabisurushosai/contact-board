@@ -1,0 +1,95 @@
+{
+  "extensionName": {
+    "message": "れんらくボード",
+    "description": "Extension name."
+  },
+  "extensionShortName": {
+    "message": "れんらく",
+    "description": "Short extension name."
+  },
+  "extensionDescription": {
+    "message": "よく連絡する家族の名前と短いメモを大きな文字で表示します。メモ表示のみで、発信機能はありません。",
+    "description": "Chrome Web Store description."
+  },
+  "singlePurposeLabel": {
+    "message": "メモ表示のみ"
+  },
+  "appTitle": {
+    "message": "れんらくボード"
+  },
+  "appLead": {
+    "message": "よく連絡する家族の名前と短いメモを、大きな文字で見やすく表示します。発信や送信はできません。"
+  },
+  "contactsTitle": {
+    "message": "家族の表示リスト"
+  },
+  "emptyTitle": {
+    "message": "まだ名前がありません"
+  },
+  "emptyBody": {
+    "message": "名前と短いメモを追加すると、ここに大きく表示されます。"
+  },
+  "noNote": {
+    "message": "メモなし"
+  },
+  "editButton": {
+    "message": "編集"
+  },
+  "deleteButton": {
+    "message": "削除"
+  },
+  "deletedStatus": {
+    "message": "削除しました。"
+  },
+  "editContactTitle": {
+    "message": "表示する名前を編集"
+  },
+  "addContactTitle": {
+    "message": "表示する名前を追加"
+  },
+  "nameLabel": {
+    "message": "名前"
+  },
+  "noteLabel": {
+    "message": "短いメモ"
+  },
+  "saveButton": {
+    "message": "保存"
+  },
+  "cancelButton": {
+    "message": "キャンセル"
+  },
+  "nameRequired": {
+    "message": "名前を入力してください。"
+  },
+  "savedStatus": {
+    "message": "この端末に保存しました。"
+  },
+  "fieldHelp": {
+    "message": "$1文字まで。"
+  },
+  "premiumTitle": {
+    "message": "Premium 枠組み"
+  },
+  "premiumActive": {
+    "message": "Premium が有効です。"
+  },
+  "trialRemaining": {
+    "message": "トライアル: 残り$1日。"
+  },
+  "trialEnded": {
+    "message": "トライアルは終了しました。基本の表示と編集は引き続き使えます。"
+  },
+  "premiumPrice": {
+    "message": "Premium は $3 の買い切りを想定しています。"
+  },
+  "premiumPlaceholder": {
+    "message": "決済リンクはオーナー設定待ちのプレースホルダーです。"
+  },
+  "trialEndsAt": {
+    "message": "トライアル終了日: $1"
+  },
+  "loadError": {
+    "message": "ローカルデータを読み込めませんでした。"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "name": "contact-board",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Chrome extension for showing frequently-contacted family names and short notes in large text.",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview --host 0.0.0.0"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.1.42",
+    "typescript": "^6.0.3",
+    "vite": "^8.0.14"
+  }
+}
