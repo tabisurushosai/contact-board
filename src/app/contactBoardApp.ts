@@ -19,6 +19,7 @@ export type ContactBoardAppOptions = {
   root: HTMLElement;
   storage: BoardStorage;
   message: MessageResolver;
+  locale?: string;
 };
 
 type StatusTone = "success" | "error";
@@ -30,12 +31,13 @@ type StatusMessage = {
 
 type FocusTarget = "name" | "status";
 
-export function createContactBoardApp({ root, storage, message }: ContactBoardAppOptions): ContactBoardApp {
+export function createContactBoardApp({ root, storage, message, locale }: ContactBoardAppOptions): ContactBoardApp {
   let boardState: ContactBoardState | null = null;
   let editingContactId: string | null = null;
   let statusMessage: StatusMessage | null = null;
   let nameFieldHasError = false;
   let pendingFocusTarget: FocusTarget | null = null;
+  const numberFormatter = new Intl.NumberFormat(locale);
 
   async function bootstrap(): Promise<void> {
     root.replaceChildren(
@@ -89,7 +91,7 @@ export function createContactBoardApp({ root, storage, message }: ContactBoardAp
         "lead",
         message(
           "appLead",
-          "Frequently-contacted family names and short notes are shown in large text. No calling or sending."
+          "Frequently contacted family names and short notes are shown in large text. Calling and sending are not available."
         )
       )
     );
@@ -100,14 +102,14 @@ export function createContactBoardApp({ root, storage, message }: ContactBoardAp
     const section = createElement("section", "contacts-section");
     section.setAttribute("aria-labelledby", "contacts-title");
     const heading = createElement("div", "section-heading");
-    const title = createElement("h2", "", message("contactsTitle", "Family contacts"));
+    const title = createElement("h2", "", message("contactsTitle", "Family contact list"));
     title.id = "contacts-title";
     heading.append(
       title,
       createElement(
         "p",
         "section-meta",
-        message("contactCount", "$1 / $2 displayed", [String(contacts.length), String(MAX_CONTACTS)])
+        message("contactCount", "$1 of $2 displayed", [formatNumber(contacts.length), formatNumber(MAX_CONTACTS)])
       )
     );
     section.append(heading);
@@ -186,8 +188,8 @@ export function createContactBoardApp({ root, storage, message }: ContactBoardAp
       "h2",
       "",
       editingContact
-        ? message("editContactTitle", "Edit displayed name")
-        : message("addContactTitle", "Add displayed name")
+        ? message("editContactTitle", "Edit name")
+        : message("addContactTitle", "Add name")
     );
     title.id = "editor-title";
     section.append(
@@ -245,7 +247,7 @@ export function createContactBoardApp({ root, storage, message }: ContactBoardAp
       boardState = upsertContact(state, { id: editingContact?.id, name, note });
       editingContactId = null;
       nameFieldHasError = false;
-      statusMessage = { text: message("savedStatus", "Saved locally."), tone: "success" };
+      statusMessage = { text: message("savedStatus", "Saved on this device."), tone: "success" };
       pendingFocusTarget = "status";
       await storage.save(boardState);
       render();
@@ -259,20 +261,24 @@ export function createContactBoardApp({ root, storage, message }: ContactBoardAp
     const status = getPremiumStatus(state);
     const section = createElement("section", "premium-panel");
     section.setAttribute("aria-labelledby", "premium-title");
-    const title = createElement("h2", "", message("premiumTitle", "Premium framework"));
+    const title = createElement("h2", "", message("premiumTitle", "Premium information"));
     title.id = "premium-title";
     section.append(title);
 
     const statusText = state.premium.enabled
       ? message("premiumActive", "Premium is active.")
       : status.isTrialActive
-        ? message("trialRemaining", "Trial: $1 days remaining.", String(status.trialDaysRemaining))
+        ? formatTrialRemaining(status.trialDaysRemaining)
         : message("trialEnded", "Trial ended. Basic display and editing still work.");
 
     section.append(
       createElement("p", "", statusText),
       createElement("p", "premium-note", message("premiumPrice", "Premium is planned as a one-time $3 purchase.")),
-      createElement("p", "premium-note", message("premiumPlaceholder", "Payment link placeholder is kept for owner setup."))
+      createElement(
+        "p",
+        "premium-note",
+        message("premiumPlaceholder", "The payment link is a placeholder until the owner sets it up.")
+      )
     );
 
     const hiddenPlaceholder = document.createElement("data");
@@ -312,7 +318,7 @@ export function createContactBoardApp({ root, storage, message }: ContactBoardAp
     const help = createElement(
       "small",
       "field-help",
-      message("fieldHelp", "Up to $1 characters.", String(maxLength))
+      message("fieldHelp", "Up to $1 characters.", formatNumber(maxLength))
     );
     help.id = `${name}-help`;
 
@@ -368,14 +374,25 @@ export function createContactBoardApp({ root, storage, message }: ContactBoardAp
   return {
     bootstrap
   };
-}
 
-function formatDate(timestamp: number): string {
-  return new Intl.DateTimeFormat(undefined, {
-    year: "numeric",
-    month: "short",
-    day: "numeric"
-  }).format(new Date(timestamp));
+  function formatNumber(value: number): string {
+    return numberFormatter.format(value);
+  }
+
+  function formatTrialRemaining(days: number): string {
+    const formattedDays = formatNumber(days);
+    return days === 1
+      ? message("trialRemainingOne", "Trial: 1 day remaining.", formattedDays)
+      : message("trialRemainingOther", "Trial: $1 days remaining.", formattedDays);
+  }
+
+  function formatDate(timestamp: number): string {
+    return new Intl.DateTimeFormat(locale, {
+      year: "numeric",
+      month: "long",
+      day: "numeric"
+    }).format(new Date(timestamp));
+  }
 }
 
 function createElement<K extends keyof HTMLElementTagNameMap>(

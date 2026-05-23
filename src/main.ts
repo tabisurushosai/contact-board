@@ -16,11 +16,17 @@ const message: MessageResolver = (key, fallback, substitutions) => {
   return fallback;
 };
 
+const locale =
+  typeof chrome !== "undefined" && chrome.i18n?.getUILanguage
+    ? chrome.i18n.getUILanguage()
+    : navigator.language;
+
 if (app) {
   const contactBoardApp = createContactBoardApp({
     root: app,
     storage: createChromeBoardStorage(),
-    message
+    message,
+    locale
   });
 
   void contactBoardApp.bootstrap();

@@ -30,7 +30,7 @@
     "message": "家族の表示リスト"
   },
   "contactCount": {
-    "message": "$1 / $2件表示"
+    "message": "$1 / $2 件を表示"
   },
   "emptyTitle": {
     "message": "まだ名前がありません"
@@ -45,13 +45,13 @@
     "message": "編集"
   },
   "editContactButtonLabel": {
-    "message": "$1を編集"
+    "message": "$1 を編集"
   },
   "deleteButton": {
     "message": "削除"
   },
   "deleteContactButtonLabel": {
-    "message": "$1を削除"
+    "message": "$1 を削除"
   },
   "deletedStatus": {
     "message": "削除しました。"
@@ -87,22 +87,25 @@
     "message": "この端末に保存しました。"
   },
   "fieldHelp": {
-    "message": "$1文字まで。"
+    "message": "$1 文字まで入力できます。"
   },
   "premiumTitle": {
-    "message": "Premium 枠組み"
+    "message": "Premium のご案内"
   },
   "premiumActive": {
     "message": "Premium が有効です。"
   },
-  "trialRemaining": {
-    "message": "トライアル: 残り$1日。"
+  "trialRemainingOne": {
+    "message": "トライアル: 残り $1 日。"
+  },
+  "trialRemainingOther": {
+    "message": "トライアル: 残り $1 日。"
   },
   "trialEnded": {
     "message": "トライアルは終了しました。基本の表示と編集は引き続き使えます。"
   },
   "premiumPrice": {
-    "message": "Premium は $3 の買い切りを想定しています。"
+    "message": "Premium は 3 米ドルの買い切りを想定しています。"
   },
   "premiumPlaceholder": {
     "message": "決済リンクはオーナー設定待ちのプレースホルダーです。"
