@@ -44,8 +44,14 @@
   "editButton": {
     "message": "編集"
   },
+  "editContactButtonLabel": {
+    "message": "$1を編集"
+  },
   "deleteButton": {
     "message": "削除"
+  },
+  "deleteContactButtonLabel": {
+    "message": "$1を削除"
   },
   "deletedStatus": {
     "message": "削除しました。"

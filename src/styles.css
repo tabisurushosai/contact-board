@@ -189,6 +189,7 @@ h3 {
 
 .field input {
   width: 100%;
+  min-height: 54px;
   border: 3px solid #14213d;
   border-radius: 14px;
   background: #ffffff;
@@ -197,9 +198,12 @@ h3 {
   font-size: 1.12rem;
 }
 
-.field input:focus-visible {
-  outline: 4px solid #ffd166;
-  outline-offset: 2px;
+.field input:focus-visible,
+button:focus-visible,
+.status-message:focus {
+  outline: 4px solid #005fcc;
+  outline-offset: 3px;
+  box-shadow: 0 0 0 7px #ffffff;
 }
 
 .field-help,
@@ -211,22 +215,18 @@ h3 {
 }
 
 button {
+  min-width: 56px;
   min-height: 50px;
   border: 0;
   border-radius: 999px;
   cursor: pointer;
   font-weight: 900;
-  padding: 13px 20px;
+  padding: 14px 22px;
 }
 
 .card-actions button,
 .form-actions button {
   flex: 1 1 120px;
-}
-
-button:focus-visible {
-  outline: 4px solid #ffd166;
-  outline-offset: 2px;
 }
 
 .primary-button {

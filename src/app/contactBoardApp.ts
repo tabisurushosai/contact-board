@@ -28,10 +28,14 @@ type StatusMessage = {
   tone: StatusTone;
 };
 
+type FocusTarget = "name" | "status";
+
 export function createContactBoardApp({ root, storage, message }: ContactBoardAppOptions): ContactBoardApp {
   let boardState: ContactBoardState | null = null;
   let editingContactId: string | null = null;
   let statusMessage: StatusMessage | null = null;
+  let nameFieldHasError = false;
+  let pendingFocusTarget: FocusTarget | null = null;
 
   async function bootstrap(): Promise<void> {
     root.replaceChildren(
@@ -72,6 +76,7 @@ export function createContactBoardApp({ root, storage, message }: ContactBoardAp
 
     appShell.append(createContactList(boardState.contacts), createEditor(boardState), createPremiumPanel(boardState));
     root.replaceChildren(appShell);
+    restoreFocus();
   }
 
   function createHeader(): HTMLElement {
@@ -118,34 +123,47 @@ export function createContactBoardApp({ root, storage, message }: ContactBoardAp
     }
 
     const list = createElement("div", "contact-list");
-    contacts.forEach((contact) => {
+    list.setAttribute("role", "list");
+    contacts.forEach((contact, index) => {
       const card = createElement("article", "contact-card");
+      card.setAttribute("role", "listitem");
+      card.setAttribute("aria-labelledby", `contact-name-${index}`);
+      card.setAttribute("aria-describedby", `contact-note-${index}`);
+
       const text = createElement("div", "contact-text");
-      text.append(
-        createElement("h3", "contact-name", contact.name),
-        createElement(
-          "p",
-          contact.note ? "contact-note" : "contact-note muted-note",
-          contact.note || message("noNote", "No note")
-        )
+      const contactName = createElement("h3", "contact-name", contact.name);
+      contactName.id = `contact-name-${index}`;
+      const contactNote = createElement(
+        "p",
+        contact.note ? "contact-note" : "contact-note muted-note",
+        contact.note || message("noNote", "No note")
       );
+      contactNote.id = `contact-note-${index}`;
+      text.append(contactName, contactNote);
 
       const actions = createElement("div", "card-actions");
       const editButton = createButton(message("editButton", "Edit"), "secondary-button");
+      editButton.setAttribute("aria-label", message("editContactButtonLabel", `Edit ${contact.name}`, contact.name));
+      editButton.setAttribute("aria-controls", "contact-editor");
       editButton.addEventListener("click", () => {
         editingContactId = contact.id;
         statusMessage = null;
+        nameFieldHasError = false;
+        pendingFocusTarget = "name";
         render();
       });
 
       const removeButton = createButton(message("deleteButton", "Delete"), "danger-button");
+      removeButton.setAttribute("aria-label", message("deleteContactButtonLabel", `Delete ${contact.name}`, contact.name));
       removeButton.addEventListener("click", async () => {
         if (!boardState) {
           return;
         }
         boardState = removeContact(boardState, contact.id);
         editingContactId = null;
+        nameFieldHasError = false;
         statusMessage = { text: message("deletedStatus", "Deleted."), tone: "success" };
+        pendingFocusTarget = "status";
         await storage.save(boardState);
         render();
       });
@@ -162,6 +180,7 @@ export function createContactBoardApp({ root, storage, message }: ContactBoardAp
   function createEditor(state: ContactBoardState): HTMLElement {
     const editingContact = state.contacts.find((contact) => contact.id === editingContactId) ?? null;
     const section = createElement("section", "editor-section");
+    section.id = "contact-editor";
     section.setAttribute("aria-labelledby", "editor-title");
     const title = createElement(
       "h2",
@@ -184,8 +203,12 @@ export function createContactBoardApp({ root, storage, message }: ContactBoardAp
 
     const form = document.createElement("form");
     form.className = "contact-form";
+    form.noValidate = true;
     form.append(
-      createLabelInput("name", message("nameLabel", "Name"), editingContact?.name ?? "", MAX_NAME_LENGTH),
+      createLabelInput("name", message("nameLabel", "Name"), editingContact?.name ?? "", MAX_NAME_LENGTH, {
+        invalid: nameFieldHasError,
+        required: true
+      }),
       createLabelInput("note", message("noteLabel", "Short note"), editingContact?.note ?? "", MAX_NOTE_LENGTH)
     );
 
@@ -197,6 +220,8 @@ export function createContactBoardApp({ root, storage, message }: ContactBoardAp
       cancelButton.addEventListener("click", () => {
         editingContactId = null;
         statusMessage = null;
+        nameFieldHasError = false;
+        pendingFocusTarget = "name";
         render();
       });
       buttonRow.append(cancelButton);
@@ -210,14 +235,18 @@ export function createContactBoardApp({ root, storage, message }: ContactBoardAp
       const note = String(formData.get("note") ?? "");
 
       if (!name.trim()) {
+        nameFieldHasError = true;
         statusMessage = { text: message("nameRequired", "Please enter a name."), tone: "error" };
+        pendingFocusTarget = "name";
         render();
         return;
       }
 
       boardState = upsertContact(state, { id: editingContact?.id, name, note });
       editingContactId = null;
+      nameFieldHasError = false;
       statusMessage = { text: message("savedStatus", "Saved locally."), tone: "success" };
+      pendingFocusTarget = "status";
       await storage.save(boardState);
       render();
     });
@@ -256,7 +285,13 @@ export function createContactBoardApp({ root, storage, message }: ContactBoardAp
     return section;
   }
 
-  function createLabelInput(name: string, labelText: string, value: string, maxLength: number): HTMLElement {
+  function createLabelInput(
+    name: string,
+    labelText: string,
+    value: string,
+    maxLength: number,
+    options: { invalid?: boolean; required?: boolean } = {}
+  ): HTMLElement {
     const wrapper = createElement("label", "field");
     const span = createElement("span", "", labelText);
     const input = document.createElement("input");
@@ -265,8 +300,14 @@ export function createContactBoardApp({ root, storage, message }: ContactBoardAp
     input.maxLength = maxLength;
     input.autocomplete = "off";
     input.inputMode = "text";
-    input.required = name === "name";
-    input.setAttribute("aria-describedby", `${name}-help`);
+    input.required = options.required === true;
+    input.setAttribute("aria-describedby", options.invalid ? `${name}-help app-status-message` : `${name}-help`);
+    if (options.required) {
+      input.setAttribute("aria-required", "true");
+    }
+    if (options.invalid) {
+      input.setAttribute("aria-invalid", "true");
+    }
 
     const help = createElement(
       "small",
@@ -289,8 +330,10 @@ export function createContactBoardApp({ root, storage, message }: ContactBoardAp
 
   function createStatusMessage(statusMessage: StatusMessage): HTMLParagraphElement {
     const status = createElement("p", `status-message status-message--${statusMessage.tone}`, statusMessage.text);
+    status.id = "app-status-message";
+    status.tabIndex = -1;
     status.setAttribute("role", statusMessage.tone === "error" ? "alert" : "status");
-    status.setAttribute("aria-live", "polite");
+    status.setAttribute("aria-live", statusMessage.tone === "error" ? "assertive" : "polite");
     return status;
   }
 
@@ -305,6 +348,21 @@ export function createContactBoardApp({ root, storage, message }: ContactBoardAp
     );
     appShell.append(card);
     return appShell;
+  }
+
+  function restoreFocus(): void {
+    if (!pendingFocusTarget) {
+      return;
+    }
+
+    const focusTarget = pendingFocusTarget;
+    pendingFocusTarget = null;
+    const target =
+      focusTarget === "name"
+        ? root.querySelector<HTMLElement>('input[name="name"]')
+        : root.querySelector<HTMLElement>(".status-message");
+
+    target?.focus({ preventScroll: true });
   }
 
   return {
