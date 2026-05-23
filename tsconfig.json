@@ -11,6 +11,7 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "moduleResolution": "Bundler",
+    "types": ["chrome", "vite/client"],
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true
