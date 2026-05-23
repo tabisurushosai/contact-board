@@ -8,7 +8,7 @@
     "description": "Short extension name."
   },
   "extensionDescription": {
-    "message": "Displays frequently-contacted family names and short notes in large text. Memo display only; no calling function.",
+    "message": "Displays frequently contacted family names and short notes in large text. Memo display only; no calling function.",
     "description": "Chrome Web Store description."
   },
   "singlePurposeLabel": {
@@ -18,7 +18,7 @@
     "message": "Contact Board"
   },
   "appLead": {
-    "message": "Frequently-contacted family names and short notes are shown in large text. Calling and sending are not available."
+    "message": "Frequently contacted family names and short notes are shown in large text. Calling and sending are not available."
   },
   "loadingTitle": {
     "message": "Loading board"
@@ -27,10 +27,10 @@
     "message": "Checking saved names on this device."
   },
   "contactsTitle": {
-    "message": "Family display list"
+    "message": "Family contact list"
   },
   "contactCount": {
-    "message": "$1 / $2 displayed"
+    "message": "$1 of $2 displayed"
   },
   "emptyTitle": {
     "message": "No names yet"
@@ -57,10 +57,10 @@
     "message": "Deleted."
   },
   "editContactTitle": {
-    "message": "Edit displayed name"
+    "message": "Edit name"
   },
   "addContactTitle": {
-    "message": "Add displayed name"
+    "message": "Add name"
   },
   "editContactHint": {
     "message": "Update the display text shown on the board."
@@ -90,12 +90,15 @@
     "message": "Up to $1 characters."
   },
   "premiumTitle": {
-    "message": "Premium framework"
+    "message": "Premium information"
   },
   "premiumActive": {
     "message": "Premium is active."
   },
-  "trialRemaining": {
+  "trialRemainingOne": {
+    "message": "Trial: 1 day remaining."
+  },
+  "trialRemainingOther": {
     "message": "Trial: $1 days remaining."
   },
   "trialEnded": {
@@ -105,7 +108,7 @@
     "message": "Premium is planned as a one-time $3 purchase."
   },
   "premiumPlaceholder": {
-    "message": "Payment link placeholder is kept for owner setup."
+    "message": "The payment link is a placeholder until the owner sets it up."
   },
   "trialEndsAt": {
     "message": "Trial ends: $1"
