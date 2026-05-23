@@ -1,27 +1,21 @@
-import { createEmptyBoardState, sanitizeBoardState } from "../core/contactBoard";
-import type { ContactBoardState } from "../core/types";
-import type { BoardStorage } from "./boardStorage";
+import { createBoardStorage } from "./boardStorage";
+import type { BoardStorage, KeyValueStorageAdapter } from "./boardStorage";
 
-const BOARD_STATE_KEY = "contactBoardState";
+type ChromeStorageArea = Pick<typeof chrome.storage.local, "get" | "set">;
 
 export function createChromeBoardStorage(now = Date.now): BoardStorage {
+  return createBoardStorage(createChromeKeyValueStorage(chrome.storage.local), now);
+}
+
+export function createChromeKeyValueStorage(area: ChromeStorageArea): KeyValueStorageAdapter {
   return {
-    async load(): Promise<ContactBoardState> {
-      const result = await chrome.storage.local.get(BOARD_STATE_KEY);
-      const stored = result[BOARD_STATE_KEY];
-
-      if (stored === undefined) {
-        const initialState = createEmptyBoardState(now());
-        await chrome.storage.local.set({ [BOARD_STATE_KEY]: initialState });
-        return initialState;
-      }
-
-      return sanitizeBoardState(stored, now());
+    async get(key: string): Promise<unknown> {
+      const result = await area.get(key);
+      return result[key];
     },
 
-    async save(state: ContactBoardState): Promise<void> {
-      const safeState = sanitizeBoardState(state, now());
-      await chrome.storage.local.set({ [BOARD_STATE_KEY]: safeState });
+    async set(key: string, value: unknown): Promise<void> {
+      await area.set({ [key]: value });
     }
   };
 }
