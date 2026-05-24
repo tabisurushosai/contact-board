@@ -1,6 +1,19 @@
 :root {
-  color: #14213d;
-  background: #f7f3e8;
+  --color-ink: #14213d;
+  --color-muted: #32476d;
+  --color-bg: #f6f0e4;
+  --color-surface: #fffaf0;
+  --color-surface-strong: #ffffff;
+  --color-border: #14213d;
+  --color-blue-soft: #e9f0ff;
+  --color-yellow-soft: #fff2c7;
+  --color-success: #0a5c35;
+  --color-success-soft: #e4fbed;
+  --color-danger: #931622;
+  --color-danger-soft: #fff0f1;
+  --shadow-card: 0 4px 0 var(--color-border);
+  color: var(--color-ink);
+  background: var(--color-bg);
   font-family:
     system-ui,
     -apple-system,
@@ -8,7 +21,8 @@
     "Segoe UI",
     sans-serif;
   font-size: 18px;
-  line-height: 1.5;
+  line-height: 1.55;
+  color-scheme: light;
   -webkit-text-size-adjust: 100%;
 }
 
@@ -17,11 +31,11 @@
 }
 
 body {
-  min-width: min(380px, 100vw);
-  max-width: 520px;
+  min-width: min(390px, 100vw);
+  max-width: 540px;
   margin: 0;
-  background: #f7f3e8;
-  color: #14213d;
+  background: var(--color-bg);
+  color: var(--color-ink);
   overflow-wrap: anywhere;
 }
 
@@ -32,12 +46,12 @@ input {
 
 .app-shell {
   display: grid;
-  gap: 18px;
-  padding: 20px;
+  gap: 20px;
+  padding: 18px;
 }
 
 .app-shell--state {
-  min-height: 320px;
+  min-height: 340px;
   align-content: center;
 }
 
@@ -47,26 +61,28 @@ input {
 .editor-section,
 .premium-panel,
 .app-shell > .state-card {
-  border: 2px solid #14213d;
-  border-radius: 20px;
-  background: #fffaf0;
-  box-shadow: 0 3px 0 #14213d;
+  border: 2px solid var(--color-border);
+  border-radius: 22px;
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
   padding: 22px;
 }
 
 .hero {
-  background: #14213d;
+  background: var(--color-ink);
   color: #ffffff;
+  padding-top: 24px;
+  padding-bottom: 24px;
 }
 
 .onboarding-guide {
-  background: #eef3ff;
+  background: var(--color-blue-soft);
 }
 
 .onboarding-guide p {
-  color: #263859;
+  color: var(--color-muted);
   font-size: 1.05rem;
-  font-weight: 700;
+  font-weight: 750;
   margin-bottom: 0;
 }
 
@@ -88,21 +104,21 @@ p {
 
 h1 {
   margin-bottom: 10px;
-  font-size: clamp(1.9rem, 7vw, 2.35rem);
+  font-size: clamp(1.95rem, 7vw, 2.45rem);
   letter-spacing: -0.02em;
   line-height: 1.08;
 }
 
 h2 {
   margin-bottom: 12px;
-  font-size: 1.4rem;
+  font-size: clamp(1.35rem, 4vw, 1.55rem);
   letter-spacing: -0.01em;
   line-height: 1.18;
 }
 
 h3 {
   margin-bottom: 8px;
-  font-size: 1.65rem;
+  font-size: clamp(1.65rem, 5vw, 2rem);
   letter-spacing: -0.015em;
   line-height: 1.12;
 }
@@ -112,7 +128,12 @@ h3 {
 .empty-card p,
 .premium-panel p {
   font-size: 1.05rem;
-  line-height: 1.5;
+  line-height: 1.55;
+}
+
+.lead {
+  color: #f3f7ff;
+  font-weight: 650;
 }
 
 .lead,
@@ -127,7 +148,7 @@ h3 {
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 12px;
-  margin-bottom: 16px;
+  margin-bottom: 18px;
 }
 
 .section-heading h2 {
@@ -136,10 +157,10 @@ h3 {
 
 .section-meta {
   flex: 0 0 auto;
-  border: 1px solid #4b5f86;
+  border: 1px solid #52658a;
   border-radius: 999px;
-  background: #eef3ff;
-  color: #14213d;
+  background: var(--color-blue-soft);
+  color: var(--color-ink);
   font-size: 0.86rem;
   font-weight: 900;
   line-height: 1.2;
@@ -149,25 +170,26 @@ h3 {
 }
 
 .section-intro {
-  color: #3d4f73;
+  color: var(--color-muted);
   font-size: 1rem;
   font-weight: 650;
-  line-height: 1.5;
+  line-height: 1.55;
   margin: -4px 0 18px;
 }
 
 .contact-list {
   display: grid;
-  gap: 16px;
+  gap: 18px;
 }
 
 .contact-card {
   display: grid;
   gap: 18px;
-  border: 2px solid #263859;
-  border-radius: 16px;
-  background: #ffffff;
+  border: 2px solid #273a5d;
+  border-radius: 18px;
+  background: var(--color-surface-strong);
   padding: 20px;
+  box-shadow: 0 2px 0 rgba(20, 33, 61, 0.14);
 }
 
 .contact-name {
@@ -176,12 +198,13 @@ h3 {
 
 .contact-note {
   margin-bottom: 0;
-  color: #263859;
+  color: var(--color-muted);
   font-weight: 600;
 }
 
 .muted-note {
-  color: #5c6a82;
+  color: #5c677d;
+  font-style: italic;
 }
 
 .card-actions,
@@ -194,18 +217,18 @@ h3 {
 .field {
   display: grid;
   gap: 8px;
-  margin-bottom: 16px;
-  color: #14213d;
+  margin-bottom: 18px;
+  color: var(--color-ink);
   font-weight: 800;
 }
 
 .field input {
   width: 100%;
-  min-height: 54px;
-  border: 3px solid #14213d;
-  border-radius: 14px;
-  background: #ffffff;
-  color: #14213d;
+  min-height: 58px;
+  border: 3px solid var(--color-border);
+  border-radius: 15px;
+  background: var(--color-surface-strong);
+  color: var(--color-ink);
   padding: 14px 15px;
   font-size: 1.12rem;
 }
@@ -216,13 +239,13 @@ button:focus-visible,
 .status-message:focus {
   outline: 4px solid #005fcc;
   outline-offset: 3px;
-  box-shadow: 0 0 0 7px #ffffff;
+  box-shadow: 0 0 0 7px var(--color-surface-strong);
 }
 
 .field-help,
 .premium-note,
 .premium-date {
-  color: #3d4f73;
+  color: var(--color-muted);
   font-size: 0.95rem;
   font-weight: 600;
 }
@@ -235,6 +258,7 @@ button {
   cursor: pointer;
   font-weight: 900;
   padding: 14px 22px;
+  touch-action: manipulation;
 }
 
 .card-actions button,
@@ -243,7 +267,7 @@ button {
 }
 
 .primary-button {
-  background: #0b6b3a;
+  background: var(--color-success);
   color: #ffffff;
 }
 
@@ -253,19 +277,19 @@ button {
 }
 
 .danger-button {
-  background: #a31621;
+  background: var(--color-danger);
   color: #ffffff;
 }
 
 .empty-card,
 .status-message {
-  border-radius: 14px;
+  border-radius: 16px;
   padding: 16px;
 }
 
 .empty-card.state-card {
   border: 2px dashed #6a5b2d;
-  background: #fff4d0;
+  background: var(--color-yellow-soft);
 }
 
 .empty-title,
@@ -282,7 +306,7 @@ button {
 .empty-action {
   display: inline-flex;
   border-radius: 999px;
-  background: #0b6b3a;
+  background: var(--color-success);
   color: #ffffff;
   font-weight: 900;
   margin-top: 4px;
@@ -291,18 +315,43 @@ button {
 }
 
 .status-message {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 10px;
   border: 2px solid currentColor;
   margin: 0;
+  line-height: 1.35;
+}
+
+.status-label {
+  border-radius: 999px;
+  color: #ffffff;
+  font-size: 0.84rem;
+  line-height: 1;
+  padding: 7px 10px;
+}
+
+.status-text {
+  min-width: 0;
 }
 
 .status-message--success {
-  background: #e8fff1;
-  color: #0a4f2d;
+  background: var(--color-success-soft);
+  color: #084927;
+}
+
+.status-message--success .status-label {
+  background: var(--color-success);
 }
 
 .status-message--error {
-  background: #fff0f0;
-  color: #8b1019;
+  background: var(--color-danger-soft);
+  color: #7f101b;
+}
+
+.status-message--error .status-label {
+  background: var(--color-danger);
 }
 
 .state-kicker {
@@ -316,19 +365,19 @@ button {
 
 .loading-card p:last-child,
 .error-card p:last-child {
-  color: #263859;
+  color: var(--color-muted);
   font-size: 1.05rem;
   font-weight: 650;
-  line-height: 1.5;
+  line-height: 1.55;
   margin-bottom: 0;
 }
 
 .loading-card {
-  background: #fffaf0;
+  background: var(--color-surface);
 }
 
 .error-card {
-  background: #fff5f5;
+  background: var(--color-danger-soft);
 }
 
 .error-card .state-kicker {
@@ -348,7 +397,7 @@ button {
 
 @media (max-width: 420px) {
   .app-shell {
-    gap: 14px;
+    gap: 16px;
     padding: 14px;
   }
 
@@ -359,6 +408,10 @@ button {
   .premium-panel,
   .app-shell > .state-card {
     padding: 18px;
+  }
+
+  .status-message {
+    align-items: start;
   }
 }
 
