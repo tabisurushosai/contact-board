@@ -140,15 +140,33 @@ export function createContactBoardApp({ root, storage, message, locale }: Contac
     if (contacts.length === 0) {
       const empty = createElement("div", "empty-card state-card");
       const action = createElement("a", "empty-action", message("emptyAction", "Go to the input fields"));
+      const emptyBody = createElement(
+        "p",
+        "",
+        message("emptyBody", "Names saved on this device appear here as easy-to-read cards.")
+      );
+      const emptyNextStep = createElement(
+        "p",
+        "",
+        message("emptyNextStep", "Use the add-name fields below to enter a family name and short note.")
+      );
+      emptyNextStep.id = "empty-next-step";
       action.href = "#contact-editor";
+      action.setAttribute("aria-controls", "contact-editor");
+      action.setAttribute("aria-describedby", "empty-next-step");
+      action.addEventListener("click", (event) => {
+        const nameInput = root.querySelector<HTMLInputElement>('input[name="name"]');
+        if (!nameInput) {
+          return;
+        }
+
+        event.preventDefault();
+        nameInput.focus();
+      });
       empty.append(
         createElement("p", "empty-title", message("emptyTitle", "No names yet")),
-        createElement("p", "", message("emptyBody", "Names saved on this device appear here as easy-to-read cards.")),
-        createElement(
-          "p",
-          "",
-          message("emptyNextStep", "Use the add-name fields below to enter a family name and short note.")
-        ),
+        emptyBody,
+        emptyNextStep,
         action
       );
       section.append(empty);
@@ -175,6 +193,7 @@ export function createContactBoardApp({ root, storage, message, locale }: Contac
       text.append(contactName, contactNote);
 
       const actions = createElement("div", "card-actions");
+      actions.setAttribute("aria-label", message("contactActionsLabel", "Actions for $1", contact.name));
       const editButton = createButton(message("editButton", "Edit"), "secondary-button");
       editButton.setAttribute("aria-label", message("editContactButtonLabel", `Edit ${contact.name}`, contact.name));
       editButton.setAttribute("aria-controls", "contact-editor");
@@ -223,20 +242,21 @@ export function createContactBoardApp({ root, storage, message, locale }: Contac
         : message("addContactTitle", "Add name")
     );
     title.id = "editor-title";
-    section.append(
-      title,
-      createElement(
-        "p",
-        "section-intro",
-        editingContact
-          ? message("editContactHint", "Update the display text shown on the board.")
-          : message("addContactHint", "Add one name and a short note for the board display.")
-      )
+    const intro = createElement(
+      "p",
+      "section-intro",
+      editingContact
+        ? message("editContactHint", "Update the display text shown on the board.")
+        : message("addContactHint", "Add one name and a short note for the board display.")
     );
+    intro.id = "editor-help";
+    section.append(title, intro);
 
     const form = document.createElement("form");
     form.className = "contact-form";
     form.noValidate = true;
+    form.setAttribute("aria-labelledby", "editor-title");
+    form.setAttribute("aria-describedby", "editor-help");
     form.append(
       createLabelInput("name", message("nameLabel", "Name"), editingContact?.name ?? "", MAX_NAME_LENGTH, {
         invalid: nameFieldHasError,
@@ -334,13 +354,16 @@ export function createContactBoardApp({ root, storage, message, locale }: Contac
   ): HTMLElement {
     const wrapper = createElement("label", "field");
     const span = createElement("span", "", labelText);
+    span.id = `${name}-label`;
     const input = document.createElement("input");
+    input.id = `${name}-field`;
     input.name = name;
     input.value = value;
     input.maxLength = maxLength;
     input.autocomplete = "off";
     input.inputMode = "text";
     input.required = options.required === true;
+    input.setAttribute("aria-labelledby", `${name}-label`);
     input.setAttribute("aria-describedby", options.invalid ? `${name}-help app-status-message` : `${name}-help`);
     if (options.required) {
       input.setAttribute("aria-required", "true");

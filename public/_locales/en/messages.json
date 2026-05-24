@@ -65,6 +65,9 @@
   "deleteContactButtonLabel": {
     "message": "Delete $1"
   },
+  "contactActionsLabel": {
+    "message": "Actions for $1"
+  },
   "deletedStatus": {
     "message": "Deleted."
   },
