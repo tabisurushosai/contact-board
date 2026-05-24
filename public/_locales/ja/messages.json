@@ -8,44 +8,44 @@
     "description": "Short extension name."
   },
   "extensionDescription": {
-    "message": "よく連絡する家族の名前と短いメモを大きな文字で表示します。メモ表示のみで、発信機能はありません。",
+    "message": "よく連絡する家族の名前と短いメモを大きく表示します。メモ表示専用で、発信機能はありません。",
     "description": "Chrome Web Store description."
   },
   "singlePurposeLabel": {
-    "message": "メモ表示のみ"
+    "message": "メモ表示専用"
   },
   "appTitle": {
     "message": "れんらくボード"
   },
   "appLead": {
-    "message": "よく連絡する家族の名前と短いメモを、大きな文字で見やすく表示します。発信や送信はできません。"
+    "message": "よく連絡する家族の名前と短いメモを、大きな文字で見やすく表示します。発信や送信は行いません。"
   },
   "loadingTitle": {
     "message": "読み込み中"
   },
   "loadingBody": {
-    "message": "この端末に保存された名前を確認しています。"
+    "message": "この端末に保存された表示リストを確認しています。"
   },
   "onboardingTitle": {
     "message": "はじめに"
   },
   "onboardingGuide": {
-    "message": "まず1件、名前と短いメモを保存すると、このボードで大きく確認できます。"
+    "message": "まず1件、名前と短いメモを保存すると、このボードに大きく表示されます。"
   },
   "contactsTitle": {
     "message": "家族の表示リスト"
   },
   "contactCount": {
-    "message": "$1 / $2 件を表示"
+    "message": "$2件中$1件を表示"
   },
   "emptyTitle": {
     "message": "まだ名前がありません"
   },
   "emptyBody": {
-    "message": "この端末に保存した名前が、読みやすいカードとしてここに表示されます。"
+    "message": "この端末に保存した名前が、読みやすいカードで表示されます。"
   },
   "emptyNextStep": {
-    "message": "下の入力欄から、家族の名前と短いメモを追加してください。"
+    "message": "下の入力欄で、家族の名前と短いメモを追加してください。"
   },
   "emptyAction": {
     "message": "入力欄へ進む"
@@ -72,13 +72,13 @@
     "message": "削除しました。"
   },
   "editContactTitle": {
-    "message": "表示する名前を編集"
+    "message": "表示名を編集"
   },
   "addContactTitle": {
-    "message": "表示する名前を追加"
+    "message": "表示名を追加"
   },
   "editContactHint": {
-    "message": "ボードに表示する文字を更新します。"
+    "message": "ボードに表示する名前とメモを更新します。"
   },
   "addContactHint": {
     "message": "ボードに表示する名前と短いメモを追加します。"
@@ -108,31 +108,31 @@
     "message": "確認"
   },
   "fieldHelp": {
-    "message": "$1 文字まで入力できます。"
+    "message": "$1文字まで入力できます。"
   },
   "premiumTitle": {
-    "message": "Premium のご案内"
+    "message": "Premiumのご案内"
   },
   "premiumActive": {
-    "message": "Premium が有効です。"
+    "message": "Premiumが有効です。"
   },
   "trialRemainingOne": {
-    "message": "トライアル: 残り $1 日。"
+    "message": "トライアル: 残り$1日。"
   },
   "trialRemainingOther": {
-    "message": "トライアル: 残り $1 日。"
+    "message": "トライアル: 残り$1日。"
   },
   "trialEnded": {
     "message": "トライアルは終了しました。基本の表示と編集は引き続き使えます。"
   },
   "premiumPrice": {
-    "message": "Premium は 3 米ドルの買い切りを想定しています。"
+    "message": "Premiumは$1の買い切りを想定しています。"
   },
   "premiumPlaceholder": {
-    "message": "決済リンクはオーナー設定待ちのプレースホルダーです。"
+    "message": "決済リンクは、オーナー設定待ちのプレースホルダーです。"
   },
   "trialEndsAt": {
-    "message": "トライアル終了日: $1"
+    "message": "トライアル終了日：$1"
   },
   "loadError": {
     "message": "ローカルデータを読み込めませんでした。"
