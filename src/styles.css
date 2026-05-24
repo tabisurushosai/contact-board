@@ -267,8 +267,7 @@ h3 {
 
 .field input:focus,
 button:focus-visible,
-.onboarding-action:focus-visible,
-.empty-action:focus-visible,
+a:focus-visible,
 .status-message:focus {
   outline: 4px solid var(--color-focus);
   outline-offset: 4px;
@@ -351,6 +350,7 @@ button {
   display: inline-flex;
   justify-content: center;
   min-height: 56px;
+  min-width: 56px;
   border-radius: 999px;
   background: var(--color-success);
   color: #ffffff;
@@ -365,7 +365,8 @@ button {
   align-items: center;
   display: inline-flex;
   justify-content: center;
-  min-height: 52px;
+  min-height: 56px;
+  min-width: 56px;
   border: 2px solid var(--color-border);
   border-radius: 999px;
   background: var(--color-surface-strong);
@@ -375,6 +376,31 @@ button {
   padding: 12px 20px;
   text-decoration: none;
   touch-action: manipulation;
+}
+
+.skip-link {
+  align-items: center;
+  background: var(--color-surface-strong);
+  border: 2px solid var(--color-border);
+  border-radius: 999px;
+  color: var(--color-ink);
+  display: inline-flex;
+  font-weight: 900;
+  justify-content: center;
+  left: 18px;
+  min-height: 56px;
+  min-width: 56px;
+  padding: 14px 22px;
+  position: absolute;
+  text-decoration: none;
+  top: 18px;
+  touch-action: manipulation;
+  transform: translateY(-150%);
+  z-index: 10;
+}
+
+.skip-link:focus-visible {
+  transform: translateY(0);
 }
 
 .status-message {

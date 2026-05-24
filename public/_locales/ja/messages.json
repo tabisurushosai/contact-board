@@ -38,6 +38,9 @@
   "onboardingAction": {
     "message": "最初の名前を追加"
   },
+  "skipToEditor": {
+    "message": "入力欄へスキップ"
+  },
   "contactsTitle": {
     "message": "家族の表示リスト"
   },
