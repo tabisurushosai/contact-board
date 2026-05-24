@@ -116,6 +116,9 @@
   "fieldHelp": {
     "message": "$1文字以内で入力できます。"
   },
+  "requiredFieldHint": {
+    "message": "必須"
+  },
   "premiumTitle": {
     "message": "プレミアムのご案内"
   },
