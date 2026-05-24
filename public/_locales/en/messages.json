@@ -98,6 +98,12 @@
   "savedStatus": {
     "message": "Saved on this device."
   },
+  "successStatusLabel": {
+    "message": "Done"
+  },
+  "errorStatusLabel": {
+    "message": "Check"
+  },
   "fieldHelp": {
     "message": "Up to $1 characters."
   },

@@ -98,6 +98,12 @@
   "savedStatus": {
     "message": "この端末に保存しました。"
   },
+  "successStatusLabel": {
+    "message": "完了"
+  },
+  "errorStatusLabel": {
+    "message": "確認"
+  },
   "fieldHelp": {
     "message": "$1 文字まで入力できます。"
   },

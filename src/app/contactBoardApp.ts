@@ -368,12 +368,21 @@ export function createContactBoardApp({ root, storage, message, locale }: Contac
     return button;
   }
 
-  function createStatusMessage(statusMessage: StatusMessage): HTMLParagraphElement {
-    const status = createElement("p", `status-message status-message--${statusMessage.tone}`, statusMessage.text);
+  function createStatusMessage(statusMessage: StatusMessage): HTMLElement {
+    const status = createElement("div", `status-message status-message--${statusMessage.tone}`);
+    const label = createElement(
+      "span",
+      "status-label",
+      statusMessage.tone === "success"
+        ? message("successStatusLabel", "Done")
+        : message("errorStatusLabel", "Check")
+    );
+    const text = createElement("span", "status-text", statusMessage.text);
     status.id = "app-status-message";
     status.tabIndex = -1;
     status.setAttribute("role", statusMessage.tone === "error" ? "alert" : "status");
     status.setAttribute("aria-live", statusMessage.tone === "error" ? "assertive" : "polite");
+    status.append(label, text);
     return status;
   }
 
