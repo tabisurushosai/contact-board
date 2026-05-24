@@ -26,6 +26,12 @@
   "loadingBody": {
     "message": "Checking saved names on this device."
   },
+  "onboardingTitle": {
+    "message": "First step"
+  },
+  "onboardingGuide": {
+    "message": "Save one name and a short note first, then this board will show it in large text."
+  },
   "contactsTitle": {
     "message": "Family contact list"
   },
@@ -36,7 +42,13 @@
     "message": "No names yet"
   },
   "emptyBody": {
-    "message": "Add a name and short note to show it here in large text."
+    "message": "Names saved on this device appear here as easy-to-read cards."
+  },
+  "emptyNextStep": {
+    "message": "Use the add-name fields below to enter a family name and short note."
+  },
+  "emptyAction": {
+    "message": "Go to the input fields"
   },
   "noNote": {
     "message": "No note"

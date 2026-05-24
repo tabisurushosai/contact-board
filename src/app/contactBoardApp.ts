@@ -76,6 +76,10 @@ export function createContactBoardApp({ root, storage, message, locale }: Contac
       appShell.append(createStatusMessage(statusMessage));
     }
 
+    if (boardState.contacts.length === 0) {
+      appShell.append(createOnboardingGuide());
+    }
+
     appShell.append(createContactList(boardState.contacts), createEditor(boardState), createPremiumPanel(boardState));
     root.replaceChildren(appShell);
     restoreFocus();
@@ -98,6 +102,25 @@ export function createContactBoardApp({ root, storage, message, locale }: Contac
     return header;
   }
 
+  function createOnboardingGuide(): HTMLElement {
+    const section = createElement("section", "onboarding-guide");
+    section.setAttribute("aria-labelledby", "onboarding-title");
+    const title = createElement("h2", "", message("onboardingTitle", "First step"));
+    title.id = "onboarding-title";
+    section.append(
+      title,
+      createElement(
+        "p",
+        "",
+        message(
+          "onboardingGuide",
+          "Save one name and a short note first, then this board will show it in large text."
+        )
+      )
+    );
+    return section;
+  }
+
   function createContactList(contacts: ContactEntry[]): HTMLElement {
     const section = createElement("section", "contacts-section");
     section.setAttribute("aria-labelledby", "contacts-title");
@@ -116,9 +139,17 @@ export function createContactBoardApp({ root, storage, message, locale }: Contac
 
     if (contacts.length === 0) {
       const empty = createElement("div", "empty-card state-card");
+      const action = createElement("a", "empty-action", message("emptyAction", "Go to the input fields"));
+      action.href = "#contact-editor";
       empty.append(
         createElement("p", "empty-title", message("emptyTitle", "No names yet")),
-        createElement("p", "", message("emptyBody", "Add a name and short note to show it here."))
+        createElement("p", "", message("emptyBody", "Names saved on this device appear here as easy-to-read cards.")),
+        createElement(
+          "p",
+          "",
+          message("emptyNextStep", "Use the add-name fields below to enter a family name and short note.")
+        ),
+        action
       );
       section.append(empty);
       return section;

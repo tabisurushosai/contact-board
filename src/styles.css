@@ -42,6 +42,7 @@ input {
 }
 
 .hero,
+.onboarding-guide,
 .contacts-section,
 .editor-section,
 .premium-panel,
@@ -56,6 +57,17 @@ input {
 .hero {
   background: #14213d;
   color: #ffffff;
+}
+
+.onboarding-guide {
+  background: #eef3ff;
+}
+
+.onboarding-guide p {
+  color: #263859;
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 0;
 }
 
 .eyebrow {
@@ -200,6 +212,7 @@ h3 {
 
 .field input:focus-visible,
 button:focus-visible,
+.empty-action:focus-visible,
 .status-message:focus {
   outline: 4px solid #005fcc;
   outline-offset: 3px;
@@ -266,6 +279,17 @@ button {
   margin-bottom: 6px;
 }
 
+.empty-action {
+  display: inline-flex;
+  border-radius: 999px;
+  background: #0b6b3a;
+  color: #ffffff;
+  font-weight: 900;
+  margin-top: 4px;
+  padding: 12px 18px;
+  text-decoration: none;
+}
+
 .status-message {
   border: 2px solid currentColor;
   margin: 0;
@@ -329,6 +353,7 @@ button {
   }
 
   .hero,
+  .onboarding-guide,
   .contacts-section,
   .editor-section,
   .premium-panel,
