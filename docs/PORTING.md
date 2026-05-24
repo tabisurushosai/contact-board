@@ -19,11 +19,11 @@ for future iOS or Android app shells.
 - `BoardStorage` is the domain-facing boundary: app code calls `load` and
   `save` with `ContactBoardState` and does not know raw storage keys.
 - Platform implementations should adapt their own local storage API to
-  `KeyValueStorageAdapter`, then pass it to `createBoardStorage`.
-- `KeyValueStorageAdapter.get` must return `undefined` for missing keys so
+  `StorageAdapter`, then pass it to `createBoardStorage`.
+- `StorageAdapter.getItem` must return `undefined` for missing keys so
   `createBoardStorage` can initialize the same default state on every
   platform.
-- `KeyValueStorageAdapter.set` must persist the value passed by
+- `StorageAdapter.setItem` must persist the value passed by
   `createBoardStorage` without changing the storage key or object shape.
 - Keep the storage key (`contactBoardState`) and sanitized
   `ContactBoardState` shape unchanged so existing local data continues to load.
@@ -31,12 +31,21 @@ for future iOS or Android app shells.
   Future iOS or Android adapters should live beside it instead of entering
   `src/core`.
 - Native adapters for iOS or Android should only translate between the native
-  local persistence API and `KeyValueStorageAdapter`; validation and defaulting
+  local persistence API and `StorageAdapter`; validation and defaulting
   should stay in `createBoardStorage`.
 - Native adapters should store the same JSON-compatible value that
   `createBoardStorage` passes through. Do not split fields across multiple
   native keys unless the adapter reassembles the original object before
   returning it.
+- For a future iOS or Android shell, create a sibling adapter in `src/storage/`
+  that implements only `getItem` and `setItem`, then reuse `createBoardStorage`
+  for defaulting and sanitization.
+- Keep native SDK imports, permission checks, and serialization details inside
+  that platform adapter or the app shell. They should not be imported from
+  `src/core`.
+- Do not duplicate validation in native adapters: if a native store returns
+  older or malformed data, pass the raw value to `createBoardStorage` and let
+  the existing sanitizer normalize it before app code uses it.
 
 ## Keep UI shell portable
 
