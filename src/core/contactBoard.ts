@@ -38,10 +38,11 @@ export function sanitizeBoardState(input: unknown, now = Date.now()): ContactBoa
     return createEmptyBoardState(now);
   }
 
-  const firstStartedAt = toPositiveNumber(input.firstStartedAt) ?? now;
-  const premium = sanitizePremiumState(input.premium);
-  const contacts = Array.isArray(input.contacts)
-    ? input.contacts
+  const firstStartedAt = toPositiveNumber(input["firstStartedAt"]) ?? now;
+  const premium = sanitizePremiumState(input["premium"]);
+  const storedContacts = input["contacts"];
+  const contacts = Array.isArray(storedContacts)
+    ? storedContacts
         .map((item) => sanitizeContact(item, now))
         .filter((contact): contact is ContactEntry => Boolean(contact))
         .slice(0, MAX_CONTACTS)
@@ -88,16 +89,19 @@ function sanitizeContact(input: unknown, now: number): ContactEntry | null {
     return null;
   }
 
-  const name = typeof input.name === "string" ? trimToMaxLength(input.name, MAX_NAME_LENGTH) : "";
+  const storedName = input["name"];
+  const name = typeof storedName === "string" ? trimToMaxLength(storedName, MAX_NAME_LENGTH) : "";
   if (!name) {
     return null;
   }
 
+  const storedId = input["id"];
+  const storedNote = input["note"];
   return {
-    id: typeof input.id === "string" && input.id.trim() ? input.id.trim() : createContactId(now),
+    id: typeof storedId === "string" && storedId.trim() ? storedId.trim() : createContactId(now),
     name,
-    note: typeof input.note === "string" ? trimToMaxLength(input.note, MAX_NOTE_LENGTH) : "",
-    updatedAt: toPositiveNumber(input.updatedAt) ?? now
+    note: typeof storedNote === "string" ? trimToMaxLength(storedNote, MAX_NOTE_LENGTH) : "",
+    updatedAt: toPositiveNumber(input["updatedAt"]) ?? now
   };
 }
 
@@ -108,9 +112,9 @@ function sanitizePremiumState(input: unknown): PremiumState {
     };
   }
 
-  const activatedAt = toPositiveNumber(input.activatedAt);
+  const activatedAt = toPositiveNumber(input["activatedAt"]);
   return {
-    enabled: input.enabled === true,
+    enabled: input["enabled"] === true,
     ...(activatedAt === undefined ? {} : { activatedAt })
   };
 }
