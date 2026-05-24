@@ -1,20 +1,25 @@
 import { createBoardStorage } from "./boardStorage";
-import type { BoardStorage, StorageAdapter } from "./types";
+import type { BoardStorage, KeyValueStorageAdapter, StorageValue } from "./types";
 
-type ChromeStorageArea = Pick<typeof chrome.storage.local, "get" | "set">;
+type ChromeStorageItems = Record<string, StorageValue>;
+
+type ChromeStorageArea = {
+  get(key: string): Promise<ChromeStorageItems>;
+  set(items: ChromeStorageItems): Promise<void>;
+};
 
 export function createChromeBoardStorage(now = Date.now): BoardStorage {
   return createBoardStorage(createChromeStorageAdapter(chrome.storage.local), now);
 }
 
-export function createChromeStorageAdapter(area: ChromeStorageArea): StorageAdapter {
+export function createChromeStorageAdapter(area: ChromeStorageArea): KeyValueStorageAdapter {
   return {
-    async read(key: string): Promise<unknown | undefined> {
+    async get(key: string): Promise<StorageValue | undefined> {
       const result = await area.get(key);
       return result[key];
     },
 
-    async write(key: string, value: unknown): Promise<void> {
+    async set(key: string, value: StorageValue): Promise<void> {
       await area.set({ [key]: value });
     }
   };
