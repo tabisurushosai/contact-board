@@ -81,10 +81,10 @@
     "message": "削除しました。"
   },
   "editContactTitle": {
-    "message": "表示名を編集"
+    "message": "名前とメモを編集"
   },
   "addContactTitle": {
-    "message": "表示名を追加"
+    "message": "名前とメモを追加"
   },
   "editContactHint": {
     "message": "ボードに表示する名前とメモを更新します。"
@@ -117,28 +117,28 @@
     "message": "確認"
   },
   "fieldHelp": {
-    "message": "$1文字まで入力できます。"
+    "message": "$1文字以内で入力できます。"
   },
   "premiumTitle": {
-    "message": "Premiumのご案内"
+    "message": "プレミアムのご案内"
   },
   "premiumActive": {
-    "message": "Premiumが有効です。"
+    "message": "プレミアムが有効です。"
   },
   "trialRemainingOne": {
-    "message": "トライアル: 残り$1日。"
+    "message": "トライアルは残り$1日です。"
   },
   "trialRemainingOther": {
-    "message": "トライアル: 残り$1日。"
+    "message": "トライアルは残り$1日です。"
   },
   "trialEnded": {
     "message": "トライアルは終了しました。基本の表示と編集は引き続き使えます。"
   },
   "premiumPrice": {
-    "message": "Premiumは$1の買い切りを想定しています。"
+    "message": "プレミアムは$1の買い切りを予定しています。"
   },
   "premiumPlaceholder": {
-    "message": "決済リンクは、オーナー設定待ちのプレースホルダーです。"
+    "message": "決済リンクはまだ準備中です。"
   },
   "trialEndsAt": {
     "message": "トライアル終了日：$1"

@@ -16,10 +16,10 @@ const message: MessageResolver = (key, fallback, substitutions) => {
   return applySubstitutions(fallback, substitutions);
 };
 
-const locale =
-  typeof chrome !== "undefined" && chrome.i18n?.getUILanguage
-    ? chrome.i18n.getUILanguage()
-    : navigator.language;
+const locale = getUiLocale();
+
+document.documentElement.lang = locale;
+document.title = message("appTitle", "Contact Board");
 
 if (app) {
   const contactBoardApp = createContactBoardApp({
@@ -39,4 +39,12 @@ function applySubstitutions(fallback: string, substitutions?: string | string[])
 
   const values = Array.isArray(substitutions) ? substitutions : [substitutions];
   return values.reduce((text, value, index) => text.split(`$${index + 1}`).join(value), fallback);
+}
+
+function getUiLocale(): string {
+  if (typeof chrome !== "undefined" && chrome.i18n?.getUILanguage) {
+    return chrome.i18n.getUILanguage() || navigator.language || "ja";
+  }
+
+  return navigator.language || "ja";
 }
