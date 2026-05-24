@@ -7,7 +7,7 @@ import {
 } from "../core/contactBoard";
 import { getPremiumStatus, STRIPE_PAYMENT_LINK } from "../core/premium";
 import type { ContactBoardState, ContactEntry } from "../core/types";
-import type { BoardStorage } from "../storage/boardStorage";
+import type { BoardStorage } from "../storage/types";
 
 export type MessageResolver = (key: string, fallback: string, substitutions?: string | string[]) => string;
 
