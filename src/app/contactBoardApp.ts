@@ -442,10 +442,13 @@ export function createContactBoardApp({ root, storage, message, locale }: Contac
     const appShell = createElement("main", "app-shell app-shell--state");
     const card = createElement("section", `state-card ${className}`);
     card.setAttribute("role", role);
+    if (className === "loading-card") {
+      card.setAttribute("aria-busy", "true");
+    }
     card.append(
       createElement("p", "state-kicker", message("singlePurposeLabel", "Memo display only")),
       createElement("h1", "", title),
-      createElement("p", "", body)
+      createElement("p", "state-body", body)
     );
     appShell.append(card);
     return appShell;
