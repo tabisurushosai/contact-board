@@ -1,4 +1,4 @@
-import type { ContactBoardState, ContactEntry } from "./types";
+import type { ContactBoardState, ContactEntry, PremiumState } from "./types";
 
 export const MAX_CONTACTS = 6;
 export const MAX_NAME_LENGTH = 40;
@@ -39,6 +39,7 @@ export function sanitizeBoardState(input: unknown, now = Date.now()): ContactBoa
   }
 
   const firstStartedAt = toPositiveNumber(input.firstStartedAt) ?? now;
+  const premium = sanitizePremiumState(input.premium);
   const contacts = Array.isArray(input.contacts)
     ? input.contacts
         .map((item) => sanitizeContact(item, now))
@@ -49,10 +50,7 @@ export function sanitizeBoardState(input: unknown, now = Date.now()): ContactBoa
   return {
     contacts,
     firstStartedAt,
-    premium: {
-      enabled: isRecord(input.premium) ? input.premium.enabled === true : false,
-      activatedAt: isRecord(input.premium) ? toPositiveNumber(input.premium.activatedAt) : undefined
-    }
+    premium
   };
 }
 
@@ -100,6 +98,20 @@ function sanitizeContact(input: unknown, now: number): ContactEntry | null {
     name,
     note: typeof input.note === "string" ? input.note.trim().slice(0, MAX_NOTE_LENGTH) : "",
     updatedAt: toPositiveNumber(input.updatedAt) ?? now
+  };
+}
+
+function sanitizePremiumState(input: unknown): PremiumState {
+  if (!isRecord(input)) {
+    return {
+      enabled: false
+    };
+  }
+
+  const activatedAt = toPositiveNumber(input.activatedAt);
+  return {
+    enabled: input.enabled === true,
+    ...(activatedAt === undefined ? {} : { activatedAt })
   };
 }
 

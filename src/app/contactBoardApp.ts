@@ -275,7 +275,10 @@ export function createContactBoardApp({ root, storage, message, locale }: Contac
         return;
       }
 
-      boardState = upsertContact(state, { id: editingContact?.id, name, note });
+      boardState = upsertContact(
+        state,
+        editingContact ? { id: editingContact.id, name, note } : { name, note }
+      );
       editingContactId = null;
       nameFieldHasError = false;
       statusMessage = { text: message("savedStatus", "Saved on this device."), tone: "success" };
