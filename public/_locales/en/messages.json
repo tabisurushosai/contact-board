@@ -27,13 +27,16 @@
     "message": "Checking the display list saved on this device."
   },
   "onboardingTitle": {
-    "message": "Getting started"
+    "message": "First-time one-line guide"
+  },
+  "onboardingStep": {
+    "message": "First step: enter a family name below and save it to show the first large card here."
   },
   "onboardingGuide": {
-    "message": "Save one name first. It will appear here as a large card, and you can add a short note later."
+    "message": "The short note can stay blank and be edited later."
   },
   "onboardingAction": {
-    "message": "Add the first name"
+    "message": "Go to name field"
   },
   "skipToEditor": {
     "message": "Skip to the input fields"
@@ -48,10 +51,10 @@
     "message": "No names yet"
   },
   "emptyBody": {
-    "message": "There are no saved names yet. The first name you save will appear here as an easy-to-read card."
+    "message": "The first name you save will appear here as an easy-to-read card."
   },
   "emptyNextStep": {
-    "message": "Use the input fields below to enter and save a name. The short note is optional."
+    "message": "Use the input fields below, enter just a name, and save it. The short note is optional."
   },
   "emptyAction": {
     "message": "Go to input fields"

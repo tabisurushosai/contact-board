@@ -124,17 +124,29 @@ export function createContactBoardApp({ root, storage, message, locale }: Contac
   function createOnboardingGuide(): HTMLElement {
     const section = createElement("section", "onboarding-guide");
     section.setAttribute("aria-labelledby", "onboarding-title");
+    section.setAttribute("aria-describedby", "onboarding-step");
     const title = createElement("h2", "", message("onboardingTitle", "One-line guide"));
     title.id = "onboarding-title";
     const action = createEditorLink(message("onboardingAction", "Add the first name"), "onboarding-action");
+    action.setAttribute("aria-describedby", "onboarding-step");
+    const firstStep = createElement(
+      "p",
+      "onboarding-step",
+      message(
+        "onboardingStep",
+        "First step: enter one family name below and save it to show the first large card here."
+      )
+    );
+    firstStep.id = "onboarding-step";
     section.append(
       title,
+      firstStep,
       createElement(
         "p",
-        "",
+        "onboarding-support",
         message(
           "onboardingGuide",
-          "Start by saving just a name; the first large card will appear here, and a short note can be added later."
+          "The short note can stay blank and be edited later."
         )
       ),
       action
@@ -164,12 +176,12 @@ export function createContactBoardApp({ root, storage, message, locale }: Contac
       const emptyBody = createElement(
         "p",
         "",
-        message("emptyBody", "There are no saved names yet. The first name you save will appear here as an easy-to-read card.")
+        message("emptyBody", "The first name you save will appear here as an easy-to-read card.")
       );
       const emptyNextStep = createElement(
         "p",
         "",
-        message("emptyNextStep", "Go to the input fields below, enter a name, and save it. The short note is optional.")
+        message("emptyNextStep", "Use the input fields below, enter just a name, and save it. The short note is optional.")
       );
       emptyNextStep.id = "empty-next-step";
       action.setAttribute("aria-describedby", "empty-next-step");
