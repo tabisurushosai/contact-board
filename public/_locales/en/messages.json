@@ -116,6 +116,9 @@
   "fieldHelp": {
     "message": "Use up to $1 characters."
   },
+  "requiredFieldHint": {
+    "message": "Required"
+  },
   "premiumTitle": {
     "message": "Premium details"
   },

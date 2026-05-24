@@ -261,6 +261,7 @@ export function createContactBoardApp({ root, storage, message, locale }: Contac
     const section = createElement("section", "editor-section");
     section.id = CONTACT_EDITOR_ID;
     section.setAttribute("aria-labelledby", "editor-title");
+    section.setAttribute("aria-describedby", "editor-help");
     const title = createElement(
       "h2",
       "",
@@ -385,8 +386,11 @@ export function createContactBoardApp({ root, storage, message, locale }: Contac
     options: { invalid?: boolean; required?: boolean } = {}
   ): HTMLElement {
     const wrapper = createElement("label", "field");
-    const span = createElement("span", "", labelText);
-    span.id = `${name}-label`;
+    const label = createElement("span", "field-label", labelText);
+    label.id = `${name}-label`;
+    if (options.required) {
+      label.append(" ", createElement("span", "required-hint", message("requiredFieldHint", "Required")));
+    }
     const input = document.createElement("input");
     input.id = `${name}-field`;
     input.name = name;
@@ -402,6 +406,7 @@ export function createContactBoardApp({ root, storage, message, locale }: Contac
     }
     if (options.invalid) {
       input.setAttribute("aria-invalid", "true");
+      input.setAttribute("aria-errormessage", APP_STATUS_MESSAGE_ID);
     }
 
     const help = createElement(
@@ -411,7 +416,7 @@ export function createContactBoardApp({ root, storage, message, locale }: Contac
     );
     help.id = `${name}-help`;
 
-    wrapper.append(span, input, help);
+    wrapper.append(label, input, help);
     return wrapper;
   }
 
@@ -437,6 +442,7 @@ export function createContactBoardApp({ root, storage, message, locale }: Contac
     status.tabIndex = -1;
     status.setAttribute("role", statusMessage.tone === "error" ? "alert" : "status");
     status.setAttribute("aria-live", statusMessage.tone === "error" ? "assertive" : "polite");
+    status.setAttribute("aria-atomic", "true");
     status.append(label, text);
     return status;
   }
