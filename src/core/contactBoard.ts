@@ -26,9 +26,9 @@ export function createContactId(now = Date.now()): string {
 
 export function normalizeContact(draft: ContactDraft, now = Date.now()): ContactEntry {
   return {
-    id: draft.id?.trim() || createContactId(now),
-    name: trimToMaxLength(draft.name, MAX_NAME_LENGTH),
-    note: trimToMaxLength(draft.note, MAX_NOTE_LENGTH),
+    id: normalizeContactId(draft.id, now),
+    name: normalizeStringField(draft.name, MAX_NAME_LENGTH),
+    note: normalizeStringField(draft.note, MAX_NOTE_LENGTH),
     updatedAt: now
   };
 }
@@ -44,7 +44,7 @@ export function sanitizeBoardState(input: unknown, now = Date.now()): ContactBoa
   const contacts = Array.isArray(storedContacts)
     ? storedContacts
         .map((item) => sanitizeContact(item, now))
-        .filter((contact): contact is ContactEntry => Boolean(contact))
+        .filter((contact): contact is ContactEntry => contact !== null)
         .slice(0, MAX_CONTACTS)
     : [];
 
@@ -89,18 +89,15 @@ function sanitizeContact(input: unknown, now: number): ContactEntry | null {
     return null;
   }
 
-  const storedName = input["name"];
-  const name = typeof storedName === "string" ? trimToMaxLength(storedName, MAX_NAME_LENGTH) : "";
+  const name = normalizeStringField(input["name"], MAX_NAME_LENGTH);
   if (!name) {
     return null;
   }
 
-  const storedId = input["id"];
-  const storedNote = input["note"];
   return {
-    id: typeof storedId === "string" && storedId.trim() ? storedId.trim() : createContactId(now),
+    id: normalizeContactId(input["id"], now),
     name,
-    note: typeof storedNote === "string" ? trimToMaxLength(storedNote, MAX_NOTE_LENGTH) : "",
+    note: normalizeStringField(input["note"], MAX_NOTE_LENGTH),
     updatedAt: toPositiveNumber(input["updatedAt"]) ?? now
   };
 }
@@ -121,6 +118,15 @@ function sanitizePremiumState(input: unknown): PremiumState {
 
 function toPositiveNumber(value: unknown): number | undefined {
   return typeof value === "number" && Number.isFinite(value) && value > 0 ? value : undefined;
+}
+
+function normalizeContactId(value: unknown, now: number): string {
+  const trimmedId = typeof value === "string" ? value.trim() : "";
+  return trimmedId || createContactId(now);
+}
+
+function normalizeStringField(value: unknown, maxLength: number): string {
+  return typeof value === "string" ? trimToMaxLength(value, maxLength) : "";
 }
 
 function trimToMaxLength(value: string, maxLength: number): string {

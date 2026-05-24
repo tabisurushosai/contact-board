@@ -490,10 +490,6 @@ export function createContactBoardApp({ root, storage, message, locale }: Contac
     target?.focus({ preventScroll: true });
   }
 
-  return {
-    bootstrap
-  };
-
   function formatNumber(value: number): string {
     return numberFormatter.format(value);
   }
@@ -512,6 +508,10 @@ export function createContactBoardApp({ root, storage, message, locale }: Contac
   function formatDate(timestamp: number): string {
     return dateFormatter.format(new Date(timestamp));
   }
+
+  return {
+    bootstrap
+  };
 }
 
 function createElement<K extends keyof HTMLElementTagNameMap>(
