@@ -487,7 +487,7 @@ export function createContactBoardApp({ root, storage, message, locale }: Contac
         ? root.querySelector<HTMLElement>(NAME_FIELD_SELECTOR)
         : root.querySelector<HTMLElement>(".status-message");
 
-    target?.focus({ preventScroll: true });
+    target?.focus();
   }
 
   function formatNumber(value: number): string {
