@@ -38,6 +38,9 @@
   "onboardingAction": {
     "message": "Add the first name"
   },
+  "skipToEditor": {
+    "message": "Skip to the input fields"
+  },
   "contactsTitle": {
     "message": "Family contact list"
   },

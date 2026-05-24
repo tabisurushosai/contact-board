@@ -82,6 +82,7 @@ export function createContactBoardApp({ root, storage, message, locale }: Contac
     }
 
     const appShell = createElement("main", "app-shell");
+    appShell.append(createEditorLink(message("skipToEditor", "Skip to the input fields"), "skip-link"));
     appShell.append(createHeader());
 
     if (statusMessage) {
@@ -201,6 +202,7 @@ export function createContactBoardApp({ root, storage, message, locale }: Contac
       text.append(contactName, contactNote);
 
       const actions = createElement("div", "card-actions");
+      actions.setAttribute("role", "group");
       actions.setAttribute("aria-label", message("contactActionsLabel", "Actions for $1", contact.name));
       const editButton = createButton(message("editButton", "Edit"), "secondary-button");
       editButton.setAttribute("aria-label", message("editContactButtonLabel", `Edit ${contact.name}`, contact.name));
