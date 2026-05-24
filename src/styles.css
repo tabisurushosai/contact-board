@@ -4,6 +4,7 @@
   --color-bg: #f6f0e4;
   --color-surface: #fffaf0;
   --color-surface-strong: #ffffff;
+  --color-surface-muted: #f7fbff;
   --color-border: #14213d;
   --color-border-soft: #52658a;
   --color-blue-soft: #e9f0ff;
@@ -35,10 +36,15 @@
 body {
   min-width: min(390px, 100vw);
   max-width: 540px;
+  min-height: 100vh;
   margin: 0;
   background: var(--color-bg);
   color: var(--color-ink);
   overflow-wrap: anywhere;
+}
+
+#app {
+  min-height: 100vh;
 }
 
 button,
@@ -48,7 +54,7 @@ input {
 
 .app-shell {
   display: grid;
-  gap: 20px;
+  gap: 18px;
   padding: 18px;
 }
 
@@ -67,7 +73,7 @@ input {
   border-radius: 22px;
   background: var(--color-surface);
   box-shadow: var(--shadow-card);
-  padding: 22px;
+  padding: 24px;
 }
 
 .contacts-section,
@@ -81,6 +87,8 @@ input {
 .hero {
   background: var(--color-ink);
   color: #ffffff;
+  display: grid;
+  gap: 10px;
   padding-top: 24px;
   padding-bottom: 24px;
 }
@@ -103,7 +111,7 @@ input {
 }
 
 .eyebrow {
-  margin: 0 0 8px;
+  margin: 0;
   color: #ffd166;
   font-size: 0.88rem;
   font-weight: 800;
@@ -119,7 +127,7 @@ p {
 }
 
 h1 {
-  margin-bottom: 10px;
+  margin-bottom: 0;
   font-size: clamp(1.95rem, 7vw, 2.45rem);
   letter-spacing: -0.02em;
   line-height: 1.08;
@@ -150,9 +158,9 @@ h3 {
 .lead {
   color: #f3f7ff;
   font-weight: 650;
+  margin-bottom: 0;
 }
 
-.lead,
 .premium-panel p:last-child,
 .empty-card p:last-child {
   margin-bottom: 0;
@@ -195,12 +203,12 @@ h3 {
 
 .contact-list {
   display: grid;
-  gap: 18px;
+  gap: 16px;
 }
 
 .contact-card {
   display: grid;
-  gap: 18px;
+  gap: 16px;
   border: 2px solid #273a5d;
   border-radius: 18px;
   background: var(--color-surface-strong);
@@ -208,8 +216,13 @@ h3 {
   box-shadow: 0 2px 0 rgba(20, 33, 61, 0.14);
 }
 
+.contact-text {
+  display: grid;
+  gap: 8px;
+}
+
 .contact-name {
-  margin-bottom: 8px;
+  margin-bottom: 0;
 }
 
 .contact-note {
@@ -219,7 +232,7 @@ h3 {
 }
 
 .muted-note {
-  color: #5c677d;
+  color: #49566f;
   font-style: italic;
 }
 
@@ -233,9 +246,13 @@ h3 {
 .field {
   display: grid;
   gap: 8px;
-  margin-bottom: 18px;
   color: var(--color-ink);
   font-weight: 800;
+}
+
+.contact-form {
+  display: grid;
+  gap: 18px;
 }
 
 .field span {
@@ -283,6 +300,7 @@ button {
   border-radius: 999px;
   cursor: pointer;
   font-weight: 900;
+  line-height: 1.2;
   padding: 14px 22px;
   touch-action: manipulation;
 }
@@ -310,14 +328,14 @@ button {
 .empty-card,
 .status-message {
   border-radius: 16px;
-  padding: 16px;
+  padding: 18px;
 }
 
 .empty-card.state-card {
   border: 2px dashed #6a5b2d;
   background: var(--color-yellow-soft);
   display: grid;
-  gap: 10px;
+  gap: 12px;
 }
 
 .empty-card p,
@@ -341,6 +359,7 @@ button {
 
 .empty-action {
   align-items: center;
+  justify-self: start;
   display: inline-flex;
   justify-content: center;
   min-height: 56px;
@@ -357,6 +376,7 @@ button {
 
 .onboarding-action {
   align-items: center;
+  justify-self: start;
   display: inline-flex;
   justify-content: center;
   min-height: 56px;
@@ -399,12 +419,12 @@ button {
 
 .status-message {
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-columns: minmax(64px, auto) minmax(0, 1fr);
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   border: 2px solid currentColor;
   margin: 0;
-  line-height: 1.35;
+  line-height: 1.45;
   box-shadow: 0 2px 0 rgba(20, 33, 61, 0.12);
 }
 
@@ -412,12 +432,15 @@ button {
   border-radius: 999px;
   color: #ffffff;
   font-size: 0.84rem;
-  line-height: 1;
+  font-weight: 900;
+  line-height: 1.1;
   padding: 7px 10px;
+  text-align: center;
 }
 
 .status-text {
   min-width: 0;
+  font-weight: 800;
 }
 
 .status-message--success {
@@ -449,14 +472,14 @@ button {
 
 .state-body {
   color: var(--color-muted);
-  font-size: 1.05rem;
+  font-size: 1.08rem;
   font-weight: 650;
   line-height: 1.55;
   margin-bottom: 0;
 }
 
 .loading-card {
-  background: var(--color-surface);
+  background: var(--color-surface-muted);
 }
 
 .loading-card .state-kicker {
