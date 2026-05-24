@@ -128,7 +128,7 @@ export function createContactBoardApp({ root, storage, message, locale }: Contac
         "",
         message(
           "onboardingGuide",
-          "Save one name and short note to show it in large text on this board."
+          "Save one name and a short note to show them in large text on this board."
         )
       ),
       createElement(
@@ -264,8 +264,8 @@ export function createContactBoardApp({ root, storage, message, locale }: Contac
       "h2",
       "",
       editingContact
-        ? message("editContactTitle", "Edit display name")
-        : message("addContactTitle", "Add display name")
+        ? message("editContactTitle", "Edit name and note")
+        : message("addContactTitle", "Add name and note")
     );
     title.id = "editor-title";
     const intro = createElement(
@@ -358,19 +358,19 @@ export function createContactBoardApp({ root, storage, message, locale }: Contac
         "premium-note",
         message(
           "premiumPrice",
-          "Premium is planned as a one-time $1 purchase.",
+          "Premium is planned as a one-time purchase of $1.",
           formatUsd(PREMIUM_PRICE_USD)
         )
       ),
       createElement(
         "p",
         "premium-note",
-        message("premiumPlaceholder", "The payment link is a placeholder until the owner sets it up.")
+        message("premiumPlaceholder", "The payment link is not ready yet.")
       )
     );
 
     section.append(
-      createElement("p", "premium-date", message("trialEndsAt", "Trial ends on $1", formatDate(status.trialEndsAt)))
+      createElement("p", "premium-date", message("trialEndsAt", "Trial ends: $1", formatDate(status.trialEndsAt)))
     );
 
     return section;
@@ -406,7 +406,7 @@ export function createContactBoardApp({ root, storage, message, locale }: Contac
     const help = createElement(
       "small",
       "field-help",
-      message("fieldHelp", "Up to $1 characters.", formatNumber(maxLength))
+      message("fieldHelp", "Use up to $1 characters.", formatNumber(maxLength))
     );
     help.id = `${name}-help`;
 
@@ -486,8 +486,8 @@ export function createContactBoardApp({ root, storage, message, locale }: Contac
   function formatTrialRemaining(days: number): string {
     const formattedDays = formatNumber(days);
     return days === 1
-      ? message("trialRemainingOne", "Trial: 1 day remaining.", formattedDays)
-      : message("trialRemainingOther", "Trial: $1 days remaining.", formattedDays);
+      ? message("trialRemainingOne", "Trial: 1 day left.", formattedDays)
+      : message("trialRemainingOther", "Trial: $1 days left.", formattedDays);
   }
 
   function formatDate(timestamp: number): string {

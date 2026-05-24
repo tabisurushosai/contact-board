@@ -30,7 +30,7 @@
     "message": "Get started"
   },
   "onboardingGuide": {
-    "message": "Save one name and short note to show it in large text on this board."
+    "message": "Save one name and a short note to show them in large text on this board."
   },
   "onboardingTip": {
     "message": "Tip: a name alone is enough to make the first card; the short note can be added later."
@@ -81,10 +81,10 @@
     "message": "Deleted."
   },
   "editContactTitle": {
-    "message": "Edit display name"
+    "message": "Edit name and note"
   },
   "addContactTitle": {
-    "message": "Add display name"
+    "message": "Add name and note"
   },
   "editContactHint": {
     "message": "Update the name and note shown on the board."
@@ -117,7 +117,7 @@
     "message": "Check"
   },
   "fieldHelp": {
-    "message": "Up to $1 characters."
+    "message": "Use up to $1 characters."
   },
   "premiumTitle": {
     "message": "Premium details"
@@ -126,22 +126,22 @@
     "message": "Premium is active."
   },
   "trialRemainingOne": {
-    "message": "Trial: 1 day remaining."
+    "message": "Trial: 1 day left."
   },
   "trialRemainingOther": {
-    "message": "Trial: $1 days remaining."
+    "message": "Trial: $1 days left."
   },
   "trialEnded": {
     "message": "Trial ended. Basic display and editing still work."
   },
   "premiumPrice": {
-    "message": "Premium is planned as a one-time $1 purchase."
+    "message": "Premium is planned as a one-time purchase of $1."
   },
   "premiumPlaceholder": {
-    "message": "The payment link is a placeholder until the owner sets it up."
+    "message": "The payment link is not ready yet."
   },
   "trialEndsAt": {
-    "message": "Trial ends on $1"
+    "message": "Trial ends: $1"
   },
   "loadError": {
     "message": "Could not load local data."
