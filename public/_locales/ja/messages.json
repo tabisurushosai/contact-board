@@ -26,6 +26,12 @@
   "loadingBody": {
     "message": "この端末に保存された名前を確認しています。"
   },
+  "onboardingTitle": {
+    "message": "はじめに"
+  },
+  "onboardingGuide": {
+    "message": "まず1件、名前と短いメモを保存すると、このボードで大きく確認できます。"
+  },
   "contactsTitle": {
     "message": "家族の表示リスト"
   },
@@ -36,7 +42,13 @@
     "message": "まだ名前がありません"
   },
   "emptyBody": {
-    "message": "名前と短いメモを追加すると、ここに大きく表示されます。"
+    "message": "この端末に保存した名前が、読みやすいカードとしてここに表示されます。"
+  },
+  "emptyNextStep": {
+    "message": "下の入力欄から、家族の名前と短いメモを追加してください。"
+  },
+  "emptyAction": {
+    "message": "入力欄へ進む"
   },
   "noNote": {
     "message": "メモなし"
