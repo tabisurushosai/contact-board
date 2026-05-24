@@ -32,6 +32,12 @@
   "onboardingGuide": {
     "message": "Save one name and short note to show it in large text on this board."
   },
+  "onboardingTip": {
+    "message": "Tip: a name alone is enough to make the first card; the short note can be added later."
+  },
+  "onboardingAction": {
+    "message": "Add the first name"
+  },
   "contactsTitle": {
     "message": "Family contact list"
   },

@@ -119,6 +119,7 @@ export function createContactBoardApp({ root, storage, message, locale }: Contac
     section.setAttribute("aria-labelledby", "onboarding-title");
     const title = createElement("h2", "", message("onboardingTitle", "Get started"));
     title.id = "onboarding-title";
+    const action = createEditorLink(message("onboardingAction", "Add the first name"), "onboarding-action");
     section.append(
       title,
       createElement(
@@ -128,7 +129,13 @@ export function createContactBoardApp({ root, storage, message, locale }: Contac
           "onboardingGuide",
           "Save one name and short note to show it in large text on this board."
         )
-      )
+      ),
+      createElement(
+        "p",
+        "onboarding-tip",
+        message("onboardingTip", "Tip: a name alone is enough to make the first card; the short note can be added later.")
+      ),
+      action
     );
     return section;
   }
@@ -151,7 +158,7 @@ export function createContactBoardApp({ root, storage, message, locale }: Contac
 
     if (contacts.length === 0) {
       const empty = createElement("div", "empty-card state-card");
-      const action = createElement("a", "empty-action", message("emptyAction", "Go to the input fields"));
+      const action = createEditorLink(message("emptyAction", "Go to the input fields"), "empty-action");
       const emptyBody = createElement(
         "p",
         "",
@@ -163,18 +170,7 @@ export function createContactBoardApp({ root, storage, message, locale }: Contac
         message("emptyNextStep", "Use the input fields below to add a family name and short note.")
       );
       emptyNextStep.id = "empty-next-step";
-      action.href = "#contact-editor";
-      action.setAttribute("aria-controls", "contact-editor");
       action.setAttribute("aria-describedby", "empty-next-step");
-      action.addEventListener("click", (event) => {
-        const nameInput = root.querySelector<HTMLInputElement>('input[name="name"]');
-        if (!nameInput) {
-          return;
-        }
-
-        event.preventDefault();
-        nameInput.focus();
-      });
       empty.append(
         createElement("p", "empty-title", message("emptyTitle", "No names yet")),
         emptyBody,
@@ -239,6 +235,22 @@ export function createContactBoardApp({ root, storage, message, locale }: Contac
 
     section.append(list);
     return section;
+  }
+
+  function createEditorLink(label: string, className: string): HTMLAnchorElement {
+    const action = createElement("a", className, label);
+    action.href = "#contact-editor";
+    action.setAttribute("aria-controls", "contact-editor");
+    action.addEventListener("click", (event) => {
+      const nameInput = root.querySelector<HTMLInputElement>('input[name="name"]');
+      if (!nameInput) {
+        return;
+      }
+
+      event.preventDefault();
+      nameInput.focus();
+    });
+    return action;
   }
 
   function createEditor(state: ContactBoardState): HTMLElement {

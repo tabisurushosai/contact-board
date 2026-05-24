@@ -32,6 +32,12 @@
   "onboardingGuide": {
     "message": "まず1件、名前と短いメモを保存すると、このボードに大きく表示されます。"
   },
+  "onboardingTip": {
+    "message": "一言ガイド: 名前だけでも最初のカードを作れます。短いメモはあとから追加できます。"
+  },
+  "onboardingAction": {
+    "message": "最初の名前を追加"
+  },
   "contactsTitle": {
     "message": "家族の表示リスト"
   },
