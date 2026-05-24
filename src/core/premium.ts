@@ -1,7 +1,6 @@
 import type { ContactBoardState, PremiumStatus } from "./types";
 
 export const TRIAL_DAYS = 7;
-export const STRIPE_PAYMENT_LINK = "https://example.com/stripe-payment-link-placeholder";
 
 const DAY_IN_MS = 24 * 60 * 60 * 1000;
 
@@ -11,7 +10,6 @@ export function getPremiumStatus(state: ContactBoardState, now = Date.now()): Pr
   const isTrialActive = now < trialEndsAt;
 
   return {
-    isPremiumActive: state.premium.enabled || isTrialActive,
     isTrialActive,
     trialEndsAt,
     trialDaysRemaining

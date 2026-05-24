@@ -27,8 +27,8 @@ export function createContactId(now = Date.now()): string {
 export function normalizeContact(draft: ContactDraft, now = Date.now()): ContactEntry {
   return {
     id: draft.id?.trim() || createContactId(now),
-    name: draft.name.trim().slice(0, MAX_NAME_LENGTH),
-    note: draft.note.trim().slice(0, MAX_NOTE_LENGTH),
+    name: trimToMaxLength(draft.name, MAX_NAME_LENGTH),
+    note: trimToMaxLength(draft.note, MAX_NOTE_LENGTH),
     updatedAt: now
   };
 }
@@ -88,7 +88,7 @@ function sanitizeContact(input: unknown, now: number): ContactEntry | null {
     return null;
   }
 
-  const name = typeof input.name === "string" ? input.name.trim().slice(0, MAX_NAME_LENGTH) : "";
+  const name = typeof input.name === "string" ? trimToMaxLength(input.name, MAX_NAME_LENGTH) : "";
   if (!name) {
     return null;
   }
@@ -96,7 +96,7 @@ function sanitizeContact(input: unknown, now: number): ContactEntry | null {
   return {
     id: typeof input.id === "string" && input.id.trim() ? input.id.trim() : createContactId(now),
     name,
-    note: typeof input.note === "string" ? input.note.trim().slice(0, MAX_NOTE_LENGTH) : "",
+    note: typeof input.note === "string" ? trimToMaxLength(input.note, MAX_NOTE_LENGTH) : "",
     updatedAt: toPositiveNumber(input.updatedAt) ?? now
   };
 }
@@ -117,6 +117,10 @@ function sanitizePremiumState(input: unknown): PremiumState {
 
 function toPositiveNumber(value: unknown): number | undefined {
   return typeof value === "number" && Number.isFinite(value) && value > 0 ? value : undefined;
+}
+
+function trimToMaxLength(value: string, maxLength: number): string {
+  return value.trim().slice(0, maxLength);
 }
 
 function isRecord(value: unknown): value is Record<string, unknown> {

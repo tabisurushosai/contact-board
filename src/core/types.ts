@@ -17,7 +17,6 @@ export type ContactBoardState = {
 };
 
 export type PremiumStatus = {
-  isPremiumActive: boolean;
   isTrialActive: boolean;
   trialEndsAt: number;
   trialDaysRemaining: number;

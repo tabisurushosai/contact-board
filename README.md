@@ -54,5 +54,4 @@ npm run build
 
 ## オーナー TODO
 
-- `STRIPE_PAYMENT_LINK` を本番の Stripe Payment Link に差し替える
 - 実決済後の Premium 有効化フローを接続する
