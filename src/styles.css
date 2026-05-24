@@ -54,6 +54,10 @@ input {
   font: inherit;
 }
 
+:where(button, a, input, .status-message) {
+  scroll-margin-block: 18px;
+}
+
 button,
 a {
   -webkit-tap-highlight-color: rgba(0, 95, 204, 0.18);
