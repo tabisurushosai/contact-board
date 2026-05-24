@@ -10,6 +10,11 @@ import type { ContactBoardState, ContactEntry } from "../core/types";
 import type { BoardStorage } from "../storage/types";
 
 const PREMIUM_PRICE_USD = 3;
+const CONTACT_EDITOR_ID = "contact-editor";
+const APP_STATUS_MESSAGE_ID = "app-status-message";
+const NAME_FIELD_NAME = "name";
+const NOTE_FIELD_NAME = "note";
+const NAME_FIELD_SELECTOR = `input[name="${NAME_FIELD_NAME}"]`;
 
 export type MessageResolver = (key: string, fallback: string, substitutions?: string | string[]) => string;
 
@@ -31,7 +36,8 @@ type StatusMessage = {
   tone: StatusTone;
 };
 
-type FocusTarget = "name" | "status";
+type EditorFieldName = typeof NAME_FIELD_NAME | typeof NOTE_FIELD_NAME;
+type FocusTarget = typeof NAME_FIELD_NAME | "status";
 
 export function createContactBoardApp({ root, storage, message, locale }: ContactBoardAppOptions): ContactBoardApp {
   let boardState: ContactBoardState | null = null;
@@ -201,12 +207,12 @@ export function createContactBoardApp({ root, storage, message, locale }: Contac
       actions.setAttribute("aria-label", message("contactActionsLabel", "Actions for $1", contact.name));
       const editButton = createButton(message("editButton", "Edit"), "secondary-button");
       editButton.setAttribute("aria-label", message("editContactButtonLabel", `Edit ${contact.name}`, contact.name));
-      editButton.setAttribute("aria-controls", "contact-editor");
+      editButton.setAttribute("aria-controls", CONTACT_EDITOR_ID);
       editButton.addEventListener("click", () => {
         editingContactId = contact.id;
         statusMessage = null;
         nameFieldHasError = false;
-        pendingFocusTarget = "name";
+        pendingFocusTarget = NAME_FIELD_NAME;
         render();
       });
 
@@ -236,10 +242,10 @@ export function createContactBoardApp({ root, storage, message, locale }: Contac
 
   function createEditorLink(label: string, className: string): HTMLAnchorElement {
     const action = createElement("a", className, label);
-    action.href = "#contact-editor";
-    action.setAttribute("aria-controls", "contact-editor");
+    action.href = `#${CONTACT_EDITOR_ID}`;
+    action.setAttribute("aria-controls", CONTACT_EDITOR_ID);
     action.addEventListener("click", (event) => {
-      const nameInput = root.querySelector<HTMLInputElement>('input[name="name"]');
+      const nameInput = root.querySelector<HTMLInputElement>(NAME_FIELD_SELECTOR);
       if (!nameInput) {
         return;
       }
@@ -253,7 +259,7 @@ export function createContactBoardApp({ root, storage, message, locale }: Contac
   function createEditor(state: ContactBoardState): HTMLElement {
     const editingContact = state.contacts.find((contact) => contact.id === editingContactId) ?? null;
     const section = createElement("section", "editor-section");
-    section.id = "contact-editor";
+    section.id = CONTACT_EDITOR_ID;
     section.setAttribute("aria-labelledby", "editor-title");
     const title = createElement(
       "h2",
@@ -279,11 +285,11 @@ export function createContactBoardApp({ root, storage, message, locale }: Contac
     form.setAttribute("aria-labelledby", "editor-title");
     form.setAttribute("aria-describedby", "editor-help");
     form.append(
-      createLabelInput("name", message("nameLabel", "Name"), editingContact?.name ?? "", MAX_NAME_LENGTH, {
+      createLabelInput(NAME_FIELD_NAME, message("nameLabel", "Name"), editingContact?.name ?? "", MAX_NAME_LENGTH, {
         invalid: nameFieldHasError,
         required: true
       }),
-      createLabelInput("note", message("noteLabel", "Short note"), editingContact?.note ?? "", MAX_NOTE_LENGTH)
+      createLabelInput(NOTE_FIELD_NAME, message("noteLabel", "Short note"), editingContact?.note ?? "", MAX_NOTE_LENGTH)
     );
 
     const buttonRow = createElement("div", "form-actions");
@@ -295,7 +301,7 @@ export function createContactBoardApp({ root, storage, message, locale }: Contac
         editingContactId = null;
         statusMessage = null;
         nameFieldHasError = false;
-        pendingFocusTarget = "name";
+        pendingFocusTarget = NAME_FIELD_NAME;
         render();
       });
       buttonRow.append(cancelButton);
@@ -305,13 +311,13 @@ export function createContactBoardApp({ root, storage, message, locale }: Contac
     form.addEventListener("submit", async (event) => {
       event.preventDefault();
       const formData = new FormData(form);
-      const name = String(formData.get("name") ?? "");
-      const note = String(formData.get("note") ?? "");
+      const name = String(formData.get(NAME_FIELD_NAME) ?? "");
+      const note = String(formData.get(NOTE_FIELD_NAME) ?? "");
 
       if (!name.trim()) {
         nameFieldHasError = true;
         statusMessage = { text: message("nameRequired", "Please enter a name."), tone: "error" };
-        pendingFocusTarget = "name";
+        pendingFocusTarget = NAME_FIELD_NAME;
         render();
         return;
       }
@@ -372,7 +378,7 @@ export function createContactBoardApp({ root, storage, message, locale }: Contac
   }
 
   function createLabelInput(
-    name: string,
+    name: EditorFieldName,
     labelText: string,
     value: string,
     maxLength: number,
@@ -390,7 +396,7 @@ export function createContactBoardApp({ root, storage, message, locale }: Contac
     input.inputMode = "text";
     input.required = options.required === true;
     input.setAttribute("aria-labelledby", `${name}-label`);
-    input.setAttribute("aria-describedby", options.invalid ? `${name}-help app-status-message` : `${name}-help`);
+    input.setAttribute("aria-describedby", options.invalid ? `${name}-help ${APP_STATUS_MESSAGE_ID}` : `${name}-help`);
     if (options.required) {
       input.setAttribute("aria-required", "true");
     }
@@ -427,7 +433,7 @@ export function createContactBoardApp({ root, storage, message, locale }: Contac
         : message("errorStatusLabel", "Check")
     );
     const text = createElement("span", "status-text", statusMessage.text);
-    status.id = "app-status-message";
+    status.id = APP_STATUS_MESSAGE_ID;
     status.tabIndex = -1;
     status.setAttribute("role", statusMessage.tone === "error" ? "alert" : "status");
     status.setAttribute("aria-live", statusMessage.tone === "error" ? "assertive" : "polite");
@@ -459,8 +465,8 @@ export function createContactBoardApp({ root, storage, message, locale }: Contac
     const focusTarget = pendingFocusTarget;
     pendingFocusTarget = null;
     const target =
-      focusTarget === "name"
-        ? root.querySelector<HTMLElement>('input[name="name"]')
+      focusTarget === NAME_FIELD_NAME
+        ? root.querySelector<HTMLElement>(NAME_FIELD_SELECTOR)
         : root.querySelector<HTMLElement>(".status-message");
 
     target?.focus({ preventScroll: true });
