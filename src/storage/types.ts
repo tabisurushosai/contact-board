@@ -5,7 +5,7 @@ export interface BoardStorage {
   save(state: ContactBoardState): Promise<void>;
 }
 
-export interface KeyValueStorage {
-  getItem(key: string): Promise<unknown>;
-  setItem(key: string, value: unknown): Promise<void>;
+export interface StorageAdapter {
+  read(key: string): Promise<unknown | undefined>;
+  write(key: string, value: unknown): Promise<void>;
 }
