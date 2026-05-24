@@ -118,7 +118,7 @@ export function createContactBoardApp({ root, storage, message, locale }: Contac
   function createOnboardingGuide(): HTMLElement {
     const section = createElement("section", "onboarding-guide");
     section.setAttribute("aria-labelledby", "onboarding-title");
-    const title = createElement("h2", "", message("onboardingTitle", "Get started"));
+    const title = createElement("h2", "", message("onboardingTitle", "One-line guide"));
     title.id = "onboarding-title";
     const action = createEditorLink(message("onboardingAction", "Add the first name"), "onboarding-action");
     section.append(
@@ -128,13 +128,8 @@ export function createContactBoardApp({ root, storage, message, locale }: Contac
         "",
         message(
           "onboardingGuide",
-          "Save one name and a short note to show them in large text on this board."
+          "Start by saving just a name; the first large card will appear here, and a short note can be added later."
         )
-      ),
-      createElement(
-        "p",
-        "onboarding-tip",
-        message("onboardingTip", "Tip: a name alone is enough to make the first card; the short note can be added later.")
       ),
       action
     );
@@ -163,12 +158,12 @@ export function createContactBoardApp({ root, storage, message, locale }: Contac
       const emptyBody = createElement(
         "p",
         "",
-        message("emptyBody", "Names saved on this device appear here as easy-to-read cards.")
+        message("emptyBody", "There are no saved names yet. The first name you save will appear here as an easy-to-read card.")
       );
       const emptyNextStep = createElement(
         "p",
         "",
-        message("emptyNextStep", "Use the input fields below to add a family name and short note.")
+        message("emptyNextStep", "Go to the input fields below, enter a name, and save it. The short note is optional.")
       );
       emptyNextStep.id = "empty-next-step";
       action.setAttribute("aria-describedby", "empty-next-step");
