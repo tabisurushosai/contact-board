@@ -16,7 +16,7 @@ const message: MessageResolver = (key, fallback, substitutions) => {
   return applySubstitutions(fallback, substitutions);
 };
 
-const locale = getUiLocale();
+const locale = getSupportedUiLocale();
 
 document.documentElement.lang = locale;
 document.title = message("appTitle", "Contact Board");
@@ -41,10 +41,11 @@ function applySubstitutions(fallback: string, substitutions?: string | string[])
   return values.reduce((text, value, index) => text.split(`$${index + 1}`).join(value), fallback);
 }
 
-function getUiLocale(): string {
-  if (typeof chrome !== "undefined" && chrome.i18n?.getUILanguage) {
-    return chrome.i18n.getUILanguage() || navigator.language || "ja";
-  }
+function getSupportedUiLocale(): "ja" | "en" {
+  const uiLanguage =
+    typeof chrome !== "undefined" && chrome.i18n?.getUILanguage
+      ? chrome.i18n.getUILanguage() || navigator.language || "ja"
+      : navigator.language || "ja";
 
-  return navigator.language || "ja";
+  return uiLanguage.toLowerCase().startsWith("en") ? "en" : "ja";
 }

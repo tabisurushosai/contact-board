@@ -8,7 +8,7 @@
     "description": "Short extension name."
   },
   "extensionDescription": {
-    "message": "よく連絡する家族の名前と短いメモを大きく表示します。メモ表示専用で、発信機能はありません。",
+    "message": "よく連絡する家族の名前と短いメモを大きく表示します。メモ表示専用で、発信・送信機能はありません。",
     "description": "Chrome Web Store description."
   },
   "singlePurposeLabel": {
@@ -24,13 +24,13 @@
     "message": "読み込み中"
   },
   "loadingBody": {
-    "message": "この端末に保存された表示リストを確認しています。"
+    "message": "この端末に保存されている表示リストを確認しています。"
   },
   "onboardingTitle": {
-    "message": "一言ガイド"
+    "message": "はじめての使い方"
   },
   "onboardingGuide": {
-    "message": "まずは名前だけ保存してください。最初の大きなカードがここに表示され、短いメモはあとから追加できます。"
+    "message": "まずは名前を1件保存してください。大きなカードとしてここに表示され、短いメモはあとから追加できます。"
   },
   "onboardingAction": {
     "message": "最初の名前を追加"
@@ -39,10 +39,10 @@
     "message": "入力欄へスキップ"
   },
   "contactsTitle": {
-    "message": "家族の表示リスト"
+    "message": "家族の連絡メモ"
   },
   "contactCount": {
-    "message": "$2件中$1件を表示"
+    "message": "最大$2件中、$1件を表示中"
   },
   "emptyTitle": {
     "message": "まだ名前がありません"
@@ -51,10 +51,10 @@
     "message": "まだ保存された名前はありません。最初に保存した名前が、読みやすいカードでここに表示されます。"
   },
   "emptyNextStep": {
-    "message": "下の入力欄へ進み、名前を入力して保存してください。短いメモは任意です。"
+    "message": "下の入力欄で名前を入力して保存してください。短いメモは任意です。"
   },
   "emptyAction": {
-    "message": "入力欄へ進む"
+    "message": "入力欄へ移動"
   },
   "noNote": {
     "message": "メモなし"
@@ -87,7 +87,7 @@
     "message": "ボードに表示する名前とメモを更新します。"
   },
   "addContactHint": {
-    "message": "ボードに表示する名前と短いメモを追加します。"
+    "message": "ボードに表示する名前と任意の短いメモを追加します。"
   },
   "nameLabel": {
     "message": "名前"
@@ -114,13 +114,13 @@
     "message": "確認"
   },
   "fieldHelp": {
-    "message": "$1文字以内で入力できます。"
+    "message": "$1文字まで入力できます。"
   },
   "requiredFieldHint": {
     "message": "必須"
   },
   "premiumTitle": {
-    "message": "プレミアムのご案内"
+    "message": "プレミアム情報"
   },
   "premiumActive": {
     "message": "プレミアムが有効です。"
@@ -138,15 +138,15 @@
     "message": "プレミアムは$1の買い切りを予定しています。"
   },
   "premiumPlaceholder": {
-    "message": "決済リンクはまだ準備中です。"
+    "message": "決済リンクは準備中です。"
   },
   "trialEndsAt": {
     "message": "トライアル終了日：$1"
   },
   "loadError": {
-    "message": "ローカルデータを読み込めませんでした。"
+    "message": "この端末の保存データを読み込めませんでした。"
   },
   "loadErrorBody": {
-    "message": "ポップアップを閉じて、もう一度開いてください。"
+    "message": "ポップアップを閉じてから、もう一度開いてください。"
   }
 }
