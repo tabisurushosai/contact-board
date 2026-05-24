@@ -493,7 +493,7 @@ export function createContactBoardApp({ root, storage, message, locale }: Contac
   function formatTrialRemaining(days: number): string {
     const formattedDays = formatNumber(days);
     return days === 1
-      ? message("trialRemainingOne", "Trial: 1 day left.", formattedDays)
+      ? message("trialRemainingOne", "Trial: $1 day left.", formattedDays)
       : message("trialRemainingOther", "Trial: $1 days left.", formattedDays);
   }
 
