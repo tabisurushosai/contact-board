@@ -65,6 +65,9 @@
   "deleteContactButtonLabel": {
     "message": "$1 を削除"
   },
+  "contactActionsLabel": {
+    "message": "$1 の操作"
+  },
   "deletedStatus": {
     "message": "削除しました。"
   },
