@@ -115,6 +115,18 @@ a {
   margin-bottom: 0;
 }
 
+.onboarding-guide .onboarding-step {
+  border-left: 5px solid var(--color-success);
+  background: var(--color-surface-strong);
+  border-radius: 14px;
+  color: var(--color-ink);
+  padding: 12px 14px;
+}
+
+.onboarding-guide .onboarding-support {
+  font-size: 1rem;
+}
+
 .eyebrow {
   margin: 0;
   color: #ffd166;
@@ -544,6 +556,7 @@ button {
 
   .hero,
   .onboarding-guide,
+  .onboarding-guide .onboarding-step,
   .contacts-section,
   .editor-section,
   .premium-panel,
