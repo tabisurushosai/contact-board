@@ -5,7 +5,7 @@ import {
   removeContact,
   upsertContact
 } from "../core/contactBoard";
-import { getPremiumStatus, STRIPE_PAYMENT_LINK } from "../core/premium";
+import { getPremiumStatus } from "../core/premium";
 import type { ContactBoardState, ContactEntry } from "../core/types";
 import type { BoardStorage } from "../storage/types";
 
@@ -367,10 +367,7 @@ export function createContactBoardApp({ root, storage, message, locale }: Contac
       )
     );
 
-    const hiddenPlaceholder = document.createElement("data");
-    hiddenPlaceholder.value = STRIPE_PAYMENT_LINK;
     section.append(
-      hiddenPlaceholder,
       createElement("p", "premium-date", message("trialEndsAt", "Trial ends on $1", formatDate(status.trialEndsAt)))
     );
 
