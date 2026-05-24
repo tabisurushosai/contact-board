@@ -8,7 +8,7 @@
     "description": "Short extension name."
   },
   "extensionDescription": {
-    "message": "Displays frequently contacted family names and short notes in large text. Memo display only; no calling function.",
+    "message": "Shows family contact names and short notes in large text. Memo display only, with no calling features.",
     "description": "Chrome Web Store description."
   },
   "singlePurposeLabel": {
@@ -18,25 +18,25 @@
     "message": "Contact Board"
   },
   "appLead": {
-    "message": "Frequently contacted family names and short notes are shown in large text. Calling and sending are not available."
+    "message": "Shows names and short notes for family members you contact often in large, easy-to-read text. Calling and messaging are not available."
   },
   "loadingTitle": {
     "message": "Loading board"
   },
   "loadingBody": {
-    "message": "Checking saved names on this device."
+    "message": "Checking the display list saved on this device."
   },
   "onboardingTitle": {
-    "message": "First step"
+    "message": "Get started"
   },
   "onboardingGuide": {
-    "message": "Save one name and a short note first, then this board will show it in large text."
+    "message": "Save one name and short note to show it in large text on this board."
   },
   "contactsTitle": {
     "message": "Family contact list"
   },
   "contactCount": {
-    "message": "$1 of $2 displayed"
+    "message": "Showing $1 of $2 names"
   },
   "emptyTitle": {
     "message": "No names yet"
@@ -45,7 +45,7 @@
     "message": "Names saved on this device appear here as easy-to-read cards."
   },
   "emptyNextStep": {
-    "message": "Use the add-name fields below to enter a family name and short note."
+    "message": "Use the input fields below to add a family name and short note."
   },
   "emptyAction": {
     "message": "Go to the input fields"
@@ -72,13 +72,13 @@
     "message": "Deleted."
   },
   "editContactTitle": {
-    "message": "Edit name"
+    "message": "Edit display name"
   },
   "addContactTitle": {
-    "message": "Add name"
+    "message": "Add display name"
   },
   "editContactHint": {
-    "message": "Update the display text shown on the board."
+    "message": "Update the name and note shown on the board."
   },
   "addContactHint": {
     "message": "Add one name and a short note for the board display."
@@ -111,7 +111,7 @@
     "message": "Up to $1 characters."
   },
   "premiumTitle": {
-    "message": "Premium information"
+    "message": "Premium details"
   },
   "premiumActive": {
     "message": "Premium is active."
@@ -126,18 +126,18 @@
     "message": "Trial ended. Basic display and editing still work."
   },
   "premiumPrice": {
-    "message": "Premium is planned as a one-time $3 purchase."
+    "message": "Premium is planned as a one-time $1 purchase."
   },
   "premiumPlaceholder": {
     "message": "The payment link is a placeholder until the owner sets it up."
   },
   "trialEndsAt": {
-    "message": "Trial ends: $1"
+    "message": "Trial ends on $1"
   },
   "loadError": {
     "message": "Could not load local data."
   },
   "loadErrorBody": {
-    "message": "Please close and reopen this popup."
+    "message": "Please close and reopen the popup."
   }
 }

@@ -9,6 +9,8 @@ import { getPremiumStatus, STRIPE_PAYMENT_LINK } from "../core/premium";
 import type { ContactBoardState, ContactEntry } from "../core/types";
 import type { BoardStorage } from "../storage/types";
 
+const PREMIUM_PRICE_USD = 3;
+
 export type MessageResolver = (key: string, fallback: string, substitutions?: string | string[]) => string;
 
 export type ContactBoardApp = {
@@ -38,13 +40,23 @@ export function createContactBoardApp({ root, storage, message, locale }: Contac
   let nameFieldHasError = false;
   let pendingFocusTarget: FocusTarget | null = null;
   const numberFormatter = new Intl.NumberFormat(locale);
+  const usdFormatter = new Intl.NumberFormat(locale, {
+    style: "currency",
+    currency: "USD",
+    maximumFractionDigits: 0
+  });
+  const dateFormatter = new Intl.DateTimeFormat(locale, {
+    year: "numeric",
+    month: "long",
+    day: "numeric"
+  });
 
   async function bootstrap(): Promise<void> {
     root.replaceChildren(
       createStateShell(
         "loading-card",
         message("loadingTitle", "Loading board"),
-        message("loadingBody", "Checking saved names on this device."),
+        message("loadingBody", "Checking the display list saved on this device."),
         "status"
       )
     );
@@ -57,7 +69,7 @@ export function createContactBoardApp({ root, storage, message, locale }: Contac
         createStateShell(
           "error-card",
           message("loadError", "Could not load local data."),
-          message("loadErrorBody", "Please close and reopen this popup."),
+          message("loadErrorBody", "Please close and reopen the popup."),
           "alert"
         )
       );
@@ -89,13 +101,13 @@ export function createContactBoardApp({ root, storage, message, locale }: Contac
     const header = createElement("header", "hero");
     header.append(
       createElement("p", "eyebrow", message("singlePurposeLabel", "Memo display only")),
-      createElement("h1", "", message("appTitle", "れんらくボード")),
+      createElement("h1", "", message("appTitle", "Contact Board")),
       createElement(
         "p",
         "lead",
         message(
           "appLead",
-          "Frequently contacted family names and short notes are shown in large text. Calling and sending are not available."
+          "Shows names and short notes for family members you contact often in large, easy-to-read text. Calling and messaging are not available."
         )
       )
     );
@@ -105,7 +117,7 @@ export function createContactBoardApp({ root, storage, message, locale }: Contac
   function createOnboardingGuide(): HTMLElement {
     const section = createElement("section", "onboarding-guide");
     section.setAttribute("aria-labelledby", "onboarding-title");
-    const title = createElement("h2", "", message("onboardingTitle", "First step"));
+    const title = createElement("h2", "", message("onboardingTitle", "Get started"));
     title.id = "onboarding-title";
     section.append(
       title,
@@ -114,7 +126,7 @@ export function createContactBoardApp({ root, storage, message, locale }: Contac
         "",
         message(
           "onboardingGuide",
-          "Save one name and a short note first, then this board will show it in large text."
+          "Save one name and short note to show it in large text on this board."
         )
       )
     );
@@ -132,7 +144,7 @@ export function createContactBoardApp({ root, storage, message, locale }: Contac
       createElement(
         "p",
         "section-meta",
-        message("contactCount", "$1 of $2 displayed", [formatNumber(contacts.length), formatNumber(MAX_CONTACTS)])
+        message("contactCount", "Showing $1 of $2 names", [formatNumber(contacts.length), formatNumber(MAX_CONTACTS)])
       )
     );
     section.append(heading);
@@ -148,7 +160,7 @@ export function createContactBoardApp({ root, storage, message, locale }: Contac
       const emptyNextStep = createElement(
         "p",
         "",
-        message("emptyNextStep", "Use the add-name fields below to enter a family name and short note.")
+        message("emptyNextStep", "Use the input fields below to add a family name and short note.")
       );
       emptyNextStep.id = "empty-next-step";
       action.href = "#contact-editor";
@@ -238,15 +250,15 @@ export function createContactBoardApp({ root, storage, message, locale }: Contac
       "h2",
       "",
       editingContact
-        ? message("editContactTitle", "Edit name")
-        : message("addContactTitle", "Add name")
+        ? message("editContactTitle", "Edit display name")
+        : message("addContactTitle", "Add display name")
     );
     title.id = "editor-title";
     const intro = createElement(
       "p",
       "section-intro",
       editingContact
-        ? message("editContactHint", "Update the display text shown on the board.")
+        ? message("editContactHint", "Update the name and note shown on the board.")
         : message("addContactHint", "Add one name and a short note for the board display.")
     );
     intro.id = "editor-help";
@@ -315,7 +327,7 @@ export function createContactBoardApp({ root, storage, message, locale }: Contac
     const status = getPremiumStatus(state);
     const section = createElement("section", "premium-panel");
     section.setAttribute("aria-labelledby", "premium-title");
-    const title = createElement("h2", "", message("premiumTitle", "Premium information"));
+    const title = createElement("h2", "", message("premiumTitle", "Premium details"));
     title.id = "premium-title";
     section.append(title);
 
@@ -327,7 +339,15 @@ export function createContactBoardApp({ root, storage, message, locale }: Contac
 
     section.append(
       createElement("p", "", statusText),
-      createElement("p", "premium-note", message("premiumPrice", "Premium is planned as a one-time $3 purchase.")),
+      createElement(
+        "p",
+        "premium-note",
+        message(
+          "premiumPrice",
+          "Premium is planned as a one-time $1 purchase.",
+          formatUsd(PREMIUM_PRICE_USD)
+        )
+      ),
       createElement(
         "p",
         "premium-note",
@@ -339,7 +359,7 @@ export function createContactBoardApp({ root, storage, message, locale }: Contac
     hiddenPlaceholder.value = STRIPE_PAYMENT_LINK;
     section.append(
       hiddenPlaceholder,
-      createElement("p", "premium-date", message("trialEndsAt", "Trial ends: $1", formatDate(status.trialEndsAt)))
+      createElement("p", "premium-date", message("trialEndsAt", "Trial ends on $1", formatDate(status.trialEndsAt)))
     );
 
     return section;
@@ -445,6 +465,10 @@ export function createContactBoardApp({ root, storage, message, locale }: Contac
     return numberFormatter.format(value);
   }
 
+  function formatUsd(value: number): string {
+    return usdFormatter.format(value);
+  }
+
   function formatTrialRemaining(days: number): string {
     const formattedDays = formatNumber(days);
     return days === 1
@@ -453,11 +477,7 @@ export function createContactBoardApp({ root, storage, message, locale }: Contac
   }
 
   function formatDate(timestamp: number): string {
-    return new Intl.DateTimeFormat(locale, {
-      year: "numeric",
-      month: "long",
-      day: "numeric"
-    }).format(new Date(timestamp));
+    return dateFormatter.format(new Date(timestamp));
   }
 }
 

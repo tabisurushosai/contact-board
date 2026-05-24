@@ -13,7 +13,7 @@ const message: MessageResolver = (key, fallback, substitutions) => {
     }
   }
 
-  return fallback;
+  return applySubstitutions(fallback, substitutions);
 };
 
 const locale =
@@ -30,4 +30,13 @@ if (app) {
   });
 
   void contactBoardApp.bootstrap();
+}
+
+function applySubstitutions(fallback: string, substitutions?: string | string[]): string {
+  if (substitutions === undefined) {
+    return fallback;
+  }
+
+  const values = Array.isArray(substitutions) ? substitutions : [substitutions];
+  return values.reduce((text, value, index) => text.split(`$${index + 1}`).join(value), fallback);
 }
