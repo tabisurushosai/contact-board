@@ -123,6 +123,12 @@ a {
   margin-bottom: 0;
 }
 
+.onboarding-guide .onboarding-callout {
+  color: var(--color-ink);
+  font-size: 1.16rem;
+  font-weight: 900;
+}
+
 .onboarding-guide .onboarding-step {
   border-left: 5px solid var(--color-success);
   background: var(--color-surface-strong);
@@ -425,6 +431,11 @@ button:active {
 .empty-title {
   font-size: 1.15rem;
   margin-bottom: 0;
+}
+
+.empty-route-hint {
+  color: var(--color-ink);
+  font-weight: 800;
 }
 
 .empty-action {
