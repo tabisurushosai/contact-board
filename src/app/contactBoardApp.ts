@@ -74,7 +74,7 @@ export function createContactBoardApp({ root, storage, message, locale }: Contac
       root.replaceChildren(
         createStateShell(
           "error-card",
-          message("loadError", "Could not load local data."),
+          message("loadError", "Could not load data saved on this device."),
           message("loadErrorBody", "Please close and reopen the popup."),
           "alert"
         )
@@ -114,7 +114,7 @@ export function createContactBoardApp({ root, storage, message, locale }: Contac
         "lead",
         message(
           "appLead",
-          "Shows names and short notes for family members you contact often in large, easy-to-read text. Calling and messaging are not available."
+          "Displays names and short notes for family contacts you use often in large, easy-to-read text. This extension does not call or send messages."
         )
       )
     );
@@ -125,16 +125,16 @@ export function createContactBoardApp({ root, storage, message, locale }: Contac
     const section = createElement("section", "onboarding-guide");
     section.setAttribute("aria-labelledby", "onboarding-title");
     section.setAttribute("aria-describedby", "onboarding-step");
-    const title = createElement("h2", "", message("onboardingTitle", "One-line guide"));
+    const title = createElement("h2", "", message("onboardingTitle", "Quick first-time guide"));
     title.id = "onboarding-title";
-    const action = createEditorLink(message("onboardingAction", "Add the first name"), "onboarding-action");
+    const action = createEditorLink(message("onboardingAction", "Go to name field"), "onboarding-action");
     action.setAttribute("aria-describedby", "onboarding-step");
     const firstStep = createElement(
       "p",
       "onboarding-step",
       message(
         "onboardingStep",
-        "First step: enter one family name below and save it to show the first large card here."
+        "Enter a family name below and save it. The first large card will appear here."
       )
     );
     firstStep.id = "onboarding-step";
@@ -158,14 +158,14 @@ export function createContactBoardApp({ root, storage, message, locale }: Contac
     const section = createElement("section", "contacts-section");
     section.setAttribute("aria-labelledby", "contacts-title");
     const heading = createElement("div", "section-heading");
-    const title = createElement("h2", "", message("contactsTitle", "Family contact list"));
+    const title = createElement("h2", "", message("contactsTitle", "Family contact board"));
     title.id = "contacts-title";
     heading.append(
       title,
       createElement(
         "p",
         "section-meta",
-        message("contactCount", "Showing $1 of $2 names", [formatNumber(contacts.length), formatNumber(MAX_CONTACTS)])
+        message("contactCount", "Showing $1 of $2 entries", [formatNumber(contacts.length), formatNumber(MAX_CONTACTS)])
       )
     );
     section.append(heading);
@@ -181,7 +181,7 @@ export function createContactBoardApp({ root, storage, message, locale }: Contac
       const emptyNextStep = createElement(
         "p",
         "",
-        message("emptyNextStep", "Use the input fields below, enter just a name, and save it. The short note is optional.")
+        message("emptyNextStep", "Enter a name in the fields below and save it. The short note is optional.")
       );
       emptyNextStep.id = "empty-next-step";
       action.setAttribute("aria-describedby", "empty-next-step");
@@ -287,7 +287,7 @@ export function createContactBoardApp({ root, storage, message, locale }: Contac
       "section-intro",
       editingContact
         ? message("editContactHint", "Update the name and note shown on the board.")
-        : message("addContactHint", "Add one name and a short note for the board display.")
+        : message("addContactHint", "Add a name and an optional short note to the board.")
     );
     intro.id = "editor-help";
     section.append(title, intro);
@@ -355,7 +355,7 @@ export function createContactBoardApp({ root, storage, message, locale }: Contac
     const status = getPremiumStatus(state);
     const section = createElement("section", "premium-panel");
     section.setAttribute("aria-labelledby", "premium-title");
-    const title = createElement("h2", "", message("premiumTitle", "Premium details"));
+    const title = createElement("h2", "", message("premiumTitle", "Premium information"));
     title.id = "premium-title";
     section.append(title);
 
@@ -372,19 +372,19 @@ export function createContactBoardApp({ root, storage, message, locale }: Contac
         "premium-note",
         message(
           "premiumPrice",
-          "Premium is planned as a one-time purchase of $1.",
+          "Premium is planned as a one-time $1 purchase.",
           formatUsd(PREMIUM_PRICE_USD)
         )
       ),
       createElement(
         "p",
         "premium-note",
-        message("premiumPlaceholder", "The payment link is not ready yet.")
+        message("premiumPlaceholder", "The payment link is still being prepared.")
       )
     );
 
     section.append(
-      createElement("p", "premium-date", message("trialEndsAt", "Trial ends: $1", formatDate(status.trialEndsAt)))
+      createElement("p", "premium-date", message("trialEndsAt", "Trial end date: $1", formatDate(status.trialEndsAt)))
     );
 
     return section;

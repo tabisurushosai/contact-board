@@ -1,9 +1,16 @@
 import { createContactBoardApp } from "./app/contactBoardApp";
 import type { MessageResolver } from "./app/contactBoardApp";
+import {
+  applyMessageSubstitutions,
+  getFallbackMessage,
+  getIntlLocale,
+  getSupportedLocale
+} from "./app/localizedMessages";
 import { createChromeBoardStorage } from "./storage/chromeStorageAdapter";
 import "./styles.css";
 
 const app = document.querySelector<HTMLDivElement>("#app");
+const locale = getSupportedLocale(getUiLanguage());
 
 const message: MessageResolver = (key, fallback, substitutions) => {
   if (typeof chrome !== "undefined" && chrome.i18n?.getMessage) {
@@ -13,10 +20,8 @@ const message: MessageResolver = (key, fallback, substitutions) => {
     }
   }
 
-  return applySubstitutions(fallback, substitutions);
+  return applyMessageSubstitutions(getFallbackMessage(locale, key, fallback), substitutions);
 };
-
-const locale = getSupportedUiLocale();
 
 document.documentElement.lang = locale;
 document.title = message("appTitle", "Contact Board");
@@ -26,26 +31,16 @@ if (app) {
     root: app,
     storage: createChromeBoardStorage(),
     message,
-    locale
+    locale: getIntlLocale(locale)
   });
 
   void contactBoardApp.bootstrap();
 }
 
-function applySubstitutions(fallback: string, substitutions?: string | string[]): string {
-  if (substitutions === undefined) {
-    return fallback;
-  }
-
-  const values = Array.isArray(substitutions) ? substitutions : [substitutions];
-  return values.reduce((text, value, index) => text.split(`$${index + 1}`).join(value), fallback);
-}
-
-function getSupportedUiLocale(): "ja" | "en" {
-  const uiLanguage =
+function getUiLanguage(): string {
+  return (
     typeof chrome !== "undefined" && chrome.i18n?.getUILanguage
       ? chrome.i18n.getUILanguage() || navigator.language || "ja"
-      : navigator.language || "ja";
-
-  return uiLanguage.toLowerCase().startsWith("en") ? "en" : "ja";
+      : navigator.language || "ja"
+  );
 }
