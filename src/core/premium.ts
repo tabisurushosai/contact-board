@@ -1,6 +1,6 @@
 import type { ContactBoardState, PremiumStatus } from "./types";
 
-export const TRIAL_DAYS = 7;
+const TRIAL_DAYS = 7;
 
 const DAY_IN_MS = 24 * 60 * 60 * 1000;
 
