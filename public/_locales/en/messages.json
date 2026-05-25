@@ -83,6 +83,9 @@
   "contactActionsLabel": {
     "message": "Actions for $1"
   },
+  "contactActionsKeyboardHelp": {
+    "message": "Use Tab to move between actions, then press Enter or Space to activate the focused button."
+  },
   "deletedStatus": {
     "message": "Deleted."
   },

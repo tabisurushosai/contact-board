@@ -83,6 +83,9 @@
   "contactActionsLabel": {
     "message": "$1 の操作"
   },
+  "contactActionsKeyboardHelp": {
+    "message": "Tabキーで操作を移動し、EnterキーまたはSpaceキーで選択中のボタンを実行できます。"
+  },
   "deletedStatus": {
     "message": "削除しました。"
   },
