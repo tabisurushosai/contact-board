@@ -2,7 +2,7 @@ import { createEmptyBoardState, sanitizeBoardState } from "../core/contactBoard"
 import type { ContactBoardState } from "../core/types";
 import type { BoardStorage, StorageAdapter } from "./types";
 
-export const BOARD_STATE_KEY = "contactBoardState";
+const BOARD_STATE_KEY = "contactBoardState";
 
 export function createBoardStorage(adapter: StorageAdapter, now = Date.now): BoardStorage {
   return {

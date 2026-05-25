@@ -4,7 +4,7 @@ export const MAX_CONTACTS = 6;
 export const MAX_NAME_LENGTH = 40;
 export const MAX_NOTE_LENGTH = 80;
 
-export type ContactDraft = {
+type ContactDraft = {
   id?: string;
   name: string;
   note: string;
@@ -20,11 +20,11 @@ export function createEmptyBoardState(now = Date.now()): ContactBoardState {
   };
 }
 
-export function createContactId(now = Date.now()): string {
+function createContactId(now = Date.now()): string {
   return `contact-${now}-${Math.random().toString(36).slice(2, 10)}`;
 }
 
-export function normalizeContact(draft: ContactDraft, now = Date.now()): ContactEntry {
+function normalizeContact(draft: ContactDraft, now = Date.now()): ContactEntry {
   return {
     id: normalizeContactId(draft.id, now),
     name: normalizeStringField(draft.name, MAX_NAME_LENGTH),
