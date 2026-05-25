@@ -12,6 +12,7 @@ import type { BoardStorage } from "../storage/types";
 const PREMIUM_PRICE_USD = 3;
 const CONTACT_EDITOR_ID = "contact-editor";
 const APP_STATUS_MESSAGE_ID = "app-status-message";
+const CONTACT_ACTION_HELP_ID = "contact-action-keyboard-help";
 const NAME_FIELD_NAME = "name";
 const NOTE_FIELD_NAME = "note";
 const NAME_FIELD_SELECTOR = `input[name="${NAME_FIELD_NAME}"]`;
@@ -209,11 +210,15 @@ export function createContactBoardApp({ root, storage, message, locale }: Contac
       return section;
     }
 
-    const list = createElement("div", "contact-list");
-    list.setAttribute("role", "list");
+    const actionHelp = createElement(
+      "p",
+      "sr-only",
+      message("contactActionsKeyboardHelp", "Use Tab to move between contact actions. Press Enter or Space to activate a button.")
+    );
+    actionHelp.id = CONTACT_ACTION_HELP_ID;
+    const list = createElement("ul", "contact-list");
     contacts.forEach((contact, index) => {
-      const card = createElement("article", "contact-card");
-      card.setAttribute("role", "listitem");
+      const card = createElement("li", "contact-card");
       card.setAttribute("aria-labelledby", `contact-name-${index}`);
       card.setAttribute("aria-describedby", `contact-note-${index}`);
 
@@ -231,6 +236,7 @@ export function createContactBoardApp({ root, storage, message, locale }: Contac
       const actions = createElement("div", "card-actions");
       actions.setAttribute("role", "group");
       actions.setAttribute("aria-label", message("contactActionsLabel", "Actions for $1", contact.name));
+      actions.setAttribute("aria-describedby", CONTACT_ACTION_HELP_ID);
       const editButton = createButton(message("editButton", "Edit"), "secondary-button");
       editButton.setAttribute("aria-label", message("editContactButtonLabel", `Edit ${contact.name}`, contact.name));
       editButton.setAttribute("aria-controls", CONTACT_EDITOR_ID);
@@ -262,7 +268,7 @@ export function createContactBoardApp({ root, storage, message, locale }: Contac
       list.append(card);
     });
 
-    section.append(list);
+    section.append(actionHelp, list);
     return section;
   }
 
