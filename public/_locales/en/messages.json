@@ -29,6 +29,9 @@
   "onboardingTitle": {
     "message": "Quick first-time guide"
   },
+  "onboardingCallout": {
+    "message": "Start with just one name."
+  },
   "onboardingStep": {
     "message": "Enter a family name below and save it. The first large card will appear here."
   },
@@ -55,6 +58,9 @@
   },
   "emptyNextStep": {
     "message": "Enter a name in the fields below and save it. The short note is optional."
+  },
+  "emptyRouteHint": {
+    "message": "Use the button below to jump straight to the required name field."
   },
   "emptyAction": {
     "message": "Go to input fields"

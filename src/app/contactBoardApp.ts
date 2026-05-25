@@ -124,11 +124,17 @@ export function createContactBoardApp({ root, storage, message, locale }: Contac
   function createOnboardingGuide(): HTMLElement {
     const section = createElement("section", "onboarding-guide");
     section.setAttribute("aria-labelledby", "onboarding-title");
-    section.setAttribute("aria-describedby", "onboarding-step");
+    section.setAttribute("aria-describedby", "onboarding-callout onboarding-step");
     const title = createElement("h2", "", message("onboardingTitle", "Quick first-time guide"));
     title.id = "onboarding-title";
     const action = createEditorLink(message("onboardingAction", "Go to name field"), "onboarding-action");
     action.setAttribute("aria-describedby", "onboarding-step");
+    const callout = createElement(
+      "p",
+      "onboarding-callout",
+      message("onboardingCallout", "Start with just one name.")
+    );
+    callout.id = "onboarding-callout";
     const firstStep = createElement(
       "p",
       "onboarding-step",
@@ -140,6 +146,7 @@ export function createContactBoardApp({ root, storage, message, locale }: Contac
     firstStep.id = "onboarding-step";
     section.append(
       title,
+      callout,
       firstStep,
       createElement(
         "p",
@@ -183,12 +190,19 @@ export function createContactBoardApp({ root, storage, message, locale }: Contac
         "",
         message("emptyNextStep", "Enter a name in the fields below and save it. The short note is optional.")
       );
+      const routeHint = createElement(
+        "p",
+        "empty-route-hint",
+        message("emptyRouteHint", "Use the button below to jump straight to the required name field.")
+      );
       emptyNextStep.id = "empty-next-step";
-      action.setAttribute("aria-describedby", "empty-next-step");
+      routeHint.id = "empty-route-hint";
+      action.setAttribute("aria-describedby", "empty-next-step empty-route-hint");
       empty.append(
         createElement("p", "empty-title", message("emptyTitle", "No names yet")),
         emptyBody,
         emptyNextStep,
+        routeHint,
         action
       );
       section.append(empty);

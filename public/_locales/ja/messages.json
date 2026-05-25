@@ -29,6 +29,9 @@
   "onboardingTitle": {
     "message": "はじめてのかんたんガイド"
   },
+  "onboardingCallout": {
+    "message": "まずは名前だけで大丈夫です。"
+  },
   "onboardingStep": {
     "message": "下の「名前」に家族の呼び名を入力して保存すると、ここに最初の大きなカードが表示されます。"
   },
@@ -55,6 +58,9 @@
   },
   "emptyNextStep": {
     "message": "下の入力欄で呼び名だけ入力して保存してください。短いメモは任意です。"
+  },
+  "emptyRouteHint": {
+    "message": "下のボタンで、必須の名前入力欄へすぐ移動できます。"
   },
   "emptyAction": {
     "message": "入力欄へ移動"
